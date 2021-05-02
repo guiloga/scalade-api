@@ -1,0 +1,23 @@
+{
+  "spec": {
+    "name": "TestRandomNames_1",
+    "functions": [
+      {
+        "type": "5fe78e97-2f85-4cd4-9f9f-b12fb58ce3ac",
+        "position": {
+          "row": 0,
+          "col": 0
+        },
+        "inputs": [
+          {
+            "id_name": "TotalGetNames",
+            "bytes": "Mw=="
+          }
+        ]
+      }
+    ]
+  },
+  "metadata": {
+    "workspace": "default"
+  }
+}

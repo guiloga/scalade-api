@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "scalade_api"
+version = "0.1.0"
+description = "SaaS automation tool"
+authors = ["Guillem López Garcia <wyl.loga@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "3.1.4"
+django-widget-tweaks = "1.4.8"
+djangorestframework = "^3.12.2"
+psycopg2-binary = "^2.8.6"
+guirpc = "^0.1"
+requests = "^2.25.1"
+boto3 = "^1.17.33"
+PyJWT = "2.0.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.2"
+model-bakery = "^1.2.1"
+pytest-django = "^4.1.0"
+requests-mock = "^1.8.0"
+django-debug-toolbar = "^3.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

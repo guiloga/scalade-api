@@ -1,0 +1,33 @@
+version: "3"
+services:
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    container_name: rabbitmq_server
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  db:
+    image: postgres
+    container_name: postgres_server
+    restart: always
+    environment:
+      POSTGRES_DB: scalade
+      POSTGRES_USER: scaladeuser
+      POSTGRES_PASSWORD: scaladepass
+    ports:
+      - "5433:5432"
+  db_admin:
+    image: dpage/pgadmin4
+    container_name: postgres_admin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: 'True'
+      PGADMIN_CONFIG_LOGIN_BANNER: '"Authorised users only!"'
+      PGADMIN_CONFIG_CONSOLE_LOG_LEVEL: 10
+    links:
+      - "db:postgres_host"
+    ports:
+      - "5000:80"

@@ -1,0 +1,29 @@
+{
+  "key": "foobar",
+  "verbose_name": "FooBar Sleep",
+  "description": "This is the fixture function called FooBar for testing purpose.",
+  "inputs": [
+    {
+      "id_name": "fake_input_1",
+      "type": "text",
+      "verbose_name": "Fake Input 1"
+    },
+    {
+      "id_name": "fake_input_2",
+      "type": "datetime",
+      "verbose_name": "Fake Input 2"
+    }
+  ],
+  "outputs": [
+    {
+      "id_name": "fake_output_1",
+      "type": "text",
+      "verbose_name": "Fake Output 1"
+    },
+    {
+      "id_name": "fake_output_2",
+      "type": "boolean",
+      "verbose_name": "Fake Output 2"
+    }
+  ]
+}

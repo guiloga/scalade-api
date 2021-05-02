@@ -1,0 +1,19 @@
+{
+  "key": "random_person_names",
+  "verbose_name": "Random Person Names",
+  "description": "This function generatesa desired number of random person names (i.e Guillem López Garcia).",
+  "inputs": [
+    {
+      "id_name": "TotalGetNames",
+      "type": "integer",
+      "verbose_name": "Total names to generate"
+    }
+  ],
+  "outputs": [
+    {
+      "id_name": "Names",
+      "type": "text",
+      "verbose_name": "List of generated names (separated by commas)"
+    }
+  ]
+}
