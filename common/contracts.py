@@ -95,19 +95,19 @@ class HttpClient(ABC):
                          f'body: {response_body}')
 
 
-class APIContract(ABC):
-    @abstractmethod
+class APIContract:
     def create(self, *args, **kwargs):
+        # TODO: Subclass and implement this method
         pass
 
-    @abstractmethod
     def retrieve(self, *args, **kwargs):
+        # TODO: Subclass and implement this method
         pass
 
-    @abstractmethod
     def update(self, *args, **kwargs):
+        # TODO: Subclass and implement this method
         pass
 
-    @abstractmethod
     def delete(self, *args, **kwargs):
+        # TODO: Subclass and implement this method
         pass

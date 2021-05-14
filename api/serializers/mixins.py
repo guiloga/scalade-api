@@ -24,10 +24,6 @@ class ListItemsWithURLSerializer(serializers.ModelSerializer):
         return reverse(self.url_basename, args=[obj.uuid], request=self.request)
 
 
-class UUIDFieldMixin(BaseSerializer):
-    uuid = serializers.UUIDField()
-
-
 class EmailValidatorMixin:
     def validate_email(self, email):
         try:

@@ -1,20 +1,16 @@
 from rest_framework import serializers
 
 from api.serializers import BaseSerializer
-from api.serializers.mixins import UUIDFieldMixin
 
 
-class GetFIContextSerializer(UUIDFieldMixin, BaseSerializer):
+class CreateFILogMessageSerializer(BaseSerializer):
     pass
 
 
-class CreateFILogMessageSerializer(UUIDFieldMixin, BaseSerializer):
-    pass
+class UpdateFIStatusSerializer(BaseSerializer):
+    status_method = serializers.ChoiceField(choices=[('block', 'Block'),
+                                                     ('complete', 'Complete')])
 
 
-class UpdateFIStatusSerializer(UUIDFieldMixin, BaseSerializer):
-    pass
-
-
-class CreateFIOutputSerializer(UUIDFieldMixin, BaseSerializer):
+class CreateFIOutputSerializer(BaseSerializer):
     pass

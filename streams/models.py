@@ -11,8 +11,10 @@ from scaladecore.config import InputConfig, OutputConfig, PositionConfig
 from scaladecore.variables import Variable
 
 from common.contracts import ModelContract
+from common.exceptions import InconsistentStateChangeError
 
 # TODO: FunctionRepositoryModel (an Image container repository)
+
 
 class FunctionTypeModel(ModelContract):
     uuid = models.UUIDField(primary_key=True,
@@ -155,18 +157,22 @@ class FunctionInstanceModel(ModelContract):
             self.status = self.entity_class.STATUS[2][0]
             self.save()
         else:
-            # TODO: inconsistent state change error
-            raise Exception('inconsistent state change error')
+            raise InconsistentStateChangeError(
+                self.__class__,
+                self.status,
+                self.entity_class.STATUS[2][0])
 
     def _complete(self):
         if self.is_running:
             self.status = self.entity_class.STATUS[-1][0]
             self.save()
         else:
-            # TODO: inconsistent state change error
-            raise Exception('inconsistent state change error')
+            raise InconsistentStateChangeError(
+                self.__class__,
+                self.status,
+                self.entity_class.STATUS[-1][0])
 
-    def change_status(self, status_method: str):
+    def update_status(self, status_method: str):
         mth = getattr(self, '_' + status_method)
         mth.__call__()
 

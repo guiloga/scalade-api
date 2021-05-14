@@ -2,8 +2,11 @@ import binascii
 import os
 
 from django.apps import apps
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers
-from scaladecore.utils import BASE64_REGEX
+from rest_framework.response import Response
+from rest_framework.status import HTTP_403_FORBIDDEN, HTTP_409_CONFLICT
+from scaladecore.utils import BASE64_REGEX, parse_bearer_token, decode_scalade_token
 
 
 class ModelManager:
@@ -46,5 +49,33 @@ class DecoratorShipper:
             hd_ = kwargs.get('headers', {})
             kwargs['headers'] = hd_ | inst.base_headers
             return func(inst, *args, **kwargs)
+
+        return wrapper
+
+    @staticmethod
+    def extract_fi_from_token(func):
+        def wrapper(inst, request, *args, **kwargs):
+            try:
+                token = parse_bearer_token(
+                    request.headers.get('Authorization', ''))
+                if not token:
+                    return Response(
+                        data={'error': 'It requires Bearer token authorization.'},
+                        status=HTTP_403_FORBIDDEN)
+                decoded_json = decode_scalade_token(token)
+                fi = ModelManager.handle(
+                    'streams.functioninstance',
+                    'get', uuid=decoded_json['fi_uuid'])
+            except ObjectDoesNotExist:
+                return Response(
+                    data={'error': "It is a conflict: functions instance resource  doesn't exist."},
+                    status=HTTP_409_CONFLICT)
+            except Exception as exc:
+                return Response(
+                    data={'error': "The provided token is not valid: "
+                                   "'%s'" % exc.__class__.__name__},
+                    status=HTTP_403_FORBIDDEN)
+            setattr(request, 'fi', fi)
+            return func(inst, request, *args, **kwargs)
 
         return wrapper

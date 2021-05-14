@@ -7,9 +7,9 @@ from boto3.dynamodb.conditions import Key
 from boto3.resources.base import ServiceResource
 from botocore.exceptions import ClientError
 
-from .contracts import HttpClient
+from .contracts import HttpClient, APIContract
 from .utils import get_hex_string
-from .mixins import BaseHeadersMixin, BaseAPIMixin
+from .mixins import BaseHeadersMixin
 from settings import K8S_SERVER_URL, K8S_PORT, K8S_TOKEN, K8S_BASE_API_URL, K8S_NAMESPACE, \
     AWS_REGION_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, DDB_BIMSG_TABLE
 
@@ -34,7 +34,7 @@ class KubernetesHttpClient(BaseHeadersMixin, HttpClient):
         pass
 
 
-class KubernetesAPI(BaseAPIMixin):
+class KubernetesAPI(APIContract):
     __inst = None
     LOGGERS = {
         'job': logging.getLogger('k8s_jobs'),

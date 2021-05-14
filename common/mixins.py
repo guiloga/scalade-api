@@ -1,47 +1,29 @@
 import os
-from .utils import DecoratorShipper as drs
+from .utils import DecoratorShipper as Decorators
 from .base import BASE_FORM_ATTRS
 from django import forms
 
 
 class BaseHeadersMixin:
-    @drs.base_headers
+    @Decorators.base_headers
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)
 
-    @drs.base_headers
+    @Decorators.base_headers
     def post(self, *args, **kwargs):
         return super().post(*args, **kwargs)
 
-    @drs.base_headers
+    @Decorators.base_headers
     def put(self, *args, **kwargs):
         return super().put(*args, **kwargs)
 
-    @drs.base_headers
+    @Decorators.base_headers
     def patch(self, *args, **kwargs):
         return super().patch(*args, **kwargs)
 
-    @drs.base_headers
+    @Decorators.base_headers
     def delete(self, *args, **kwargs):
         return super().delete(*args, **kwargs)
-
-
-class BaseAPIMixin:
-    def create(self, *args, **kwargs):
-        # TODO: Subclass and implement this method
-        pass
-
-    def retrieve(self, *args, **kwargs):
-        # TODO: Subclass and implement this method
-        pass
-
-    def update(self, *args, **kwargs):
-        # TODO: Subclass and implement this method
-        pass
-
-    def delete(self, *args, **kwargs):
-        # TODO: Subclass and implement this method
-        pass
 
 
 class AdminAddFormMixin:

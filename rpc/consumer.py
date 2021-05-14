@@ -90,7 +90,7 @@ def change_bi_status(x_request):
             'streams.functioninstance',
             'get',
             uuid=payload['bi_uuid'])
-        bi.change_status(payload['status_method'])
+        bi.update_status(payload['status_method'])
     except Exception as err:
         return ProxyResponse(
             200, object_={'success': False,
