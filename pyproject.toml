@@ -14,6 +14,7 @@ guirpc = "^0.1"
 requests = "^2.25.1"
 boto3 = "^1.17.33"
 PyJWT = "2.0.1"
+Faker = "^8.1.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
