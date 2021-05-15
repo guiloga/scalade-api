@@ -43,10 +43,10 @@ auth_api_patterns = [
 # -------------------- #
 runtime_api_patterns = [
     # fi stands for FunctionInstance
-    path(r'runtime/fi-context/', GetFIContext.as_view()),
-    path(r'runtime/fi-log/', CreateFILogMessage.as_view()),
-    path(r'runtime/fi-status/', UpdateFIStatus.as_view()),
-    path(r'runtime/fi-output/', CreateFIOutput.as_view()),
+    path(r'runtime/retrieve-fi-context/', GetFIContext.as_view()),
+    path(r'runtime/create-fi-log/', CreateFILogMessage.as_view()),
+    path(r'runtime/update-fi-status/', UpdateFIStatus.as_view()),
+    path(r'runtime/create-fi-output/', CreateFIOutput.as_view()),
 ]
 
 urlpatterns = entities_api_patterns + auth_api_patterns + runtime_api_patterns

@@ -13,4 +13,4 @@ class UpdateFIStatusSerializer(BaseSerializer):
 
 
 class CreateFIOutputSerializer(BaseSerializer):
-    pass
+    output = serializers.CharField()

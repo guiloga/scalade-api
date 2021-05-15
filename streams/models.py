@@ -1,6 +1,6 @@
 from uuid import UUID, uuid4
 import json
-from typing import Tuple, Optional
+from typing import Tuple, Optional, Union
 
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
@@ -211,7 +211,7 @@ class VariableModel(ModelContract):
             rank=self.rank, )
 
     @classmethod
-    def create_output(cls, fi_uuid: UUID, output: Variable) -> Tuple[object, Optional[str]]:
+    def create_output(cls, fi_uuid: Union[UUID, str], output: Variable) -> Tuple[object, Optional[str]]:
         try:
             fi = FunctionInstanceModel.objects.get(uuid=fi_uuid)
         except ObjectDoesNotExist:

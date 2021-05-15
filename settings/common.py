@@ -174,7 +174,7 @@ REST_FRAMEWORK = {
 
 
 # RESOURCES DIR
-RESOURCES_DIR = os.path.join(BASE_DIR, 'resources')
+RESOURCES_DIR = os.path.join(BASE_DIR, 'tests', 'resources')
 
 # KUBERNETES INTEGRATION
 K8S_SERVER_URL = os.getenv('K8S_SERVER_URL', 'https://fakeuuid.k8s.ondigitalocean.com')
