@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 import logging
 import requests
-from typing import Type
 
 from common.utils import get_hex_string
 from django.db import models
@@ -10,6 +9,7 @@ from scaladecore.entities import EntityContract
 
 class ModelContract(models.Model):
     uuid = None
+    created = None
 
     class Meta:
         abstract = True
@@ -73,10 +73,12 @@ class HttpClient(ABC):
         self._log_response(hex_id, 'POST', response.status_code, response.json())
         return response
 
-    def put(self, relative_url: str, url_params: dict = None, body: dict = None, headers: dict = None, **kwargs):
+    def put(self, relative_url: str, url_params: dict = None, body: dict = None,
+            headers: dict = None, **kwargs):
         raise NotImplementedError
 
-    def patch(self, relative_url: str, url_params: dict = None, body: dict = None, headers: dict = None, **kwargs):
+    def patch(self, relative_url: str, url_params: dict = None, body: dict = None,
+              headers: dict = None, **kwargs):
         raise NotImplementedError
 
     def delete(self, relative_url: str, headers: dict = None, **kwargs):
