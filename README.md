@@ -1,38 +1,43 @@
-# Scalade Web Service
+# Scalade API Server
+Scalade API Server is the core component of **Scalade services**, is the backend service that exposes the Scalade API web service which is the responsible of the interaction between all the rest of the components. It is build with all build with Python-Django.
 
-### Prerequisites ###
+## About Scalade
+Scalade is an orchestration/automation PaaS built to run into a Kubernetes cluster.
+It provides a simple interface to build Functions that will run as Jobs on a k8s cluster.
 
-* Python version [**3.9**](https://www.python.org/downloads/release/python-390/) (with [pip](https://pip.pypa.io/en/stable/))
 
-### Setup ###
-Ensure that python3.9 is installed in your machine and that python3.9 binary is in your PATH.
-```
-export PATH="$PATH:<dir_to_your_python_installatin>/bin>"
-```
+## Brief brushstroke of the Scalade Architecture
+Scalade runs on Kubernetes and it's fully templated with **Helm**, so you can have a full Scalade environment in just a few minutes.
 
-Install **poetry** for easier dependency management:
-```
-python3.9 -m pip install poetry
-```
+Here is a simple diagram that illustrates how Scalade works:
+<div>
+  <center>
+    <br>
+    <img src="images/scalade_arch.png" alt="Scalade Arch"/>
+    <br>
+  </center>
+</div><br>
+<!-- ![Scalade Arch](images/scalade_arch.png) -->
 
-Environment installation (this creates a virtual environemnt and installs all development required packages):
-```
-poetry install
-```
+As you can see in the diagram Scalade is composed of the following components or services:
+- **scalade-api-server**: the scalade API service, it's integrated with the **kube-api-server**.
+- **functions**: are workloads that runs as Jobs, built with ScaladeSDKs. 
+- **scalade-monitoring-gateway**: monitoring gateway service that comunicates with APM server(Prometheus).
 
-Spawn a shell within the virtual environment and begin to work:
-```
-poetry shell
-sh dev_setup.sh
-python manage.py runserver
-```
 
-### Development Notes
-* A superuser is created at setup for development with **username**: admin **password**: admin
+Go further and check the full [documentation](https://scalade.io/scalade-docs-doesnt-exit-yet). 
 
-### Tests ###
+## Installation
+TODO
 
-* TODO
+### Packages
+TODO
 
-### Contributors ###
-* Guillem L—pez Garcia
+## Tests
+TODO
+
+
+## Contribution guildeline
+TODO
+### Contributors
+* Guillem Lopez Garcia
