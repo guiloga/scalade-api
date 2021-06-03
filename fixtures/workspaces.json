@@ -1,0 +1,11 @@
+[
+    {
+        "model": "accounts.workspacemodel",
+        "pk": "0be47ce4-a2e9-471f-b92a-a25c7811e261",
+        "fields": {
+            "created": "2021-06-03T09:40:55.933Z",
+            "name": "test_user_1-default",
+            "business": "0461f477-8194-4d3d-8c3a-1311f3d8eba4"
+        }
+    }
+]

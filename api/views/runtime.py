@@ -23,7 +23,7 @@ def _query_serialized_function_variables(function_instance, iot):
     return [var_.to_entity.as_dict for var_ in variables]
 
 
-class GetFIContext(APIView):
+class RetrieveFIContext(APIView):
     """
     Retrieves the runtime Context data of the underlying FunctionInstance.
     """

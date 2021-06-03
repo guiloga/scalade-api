@@ -14,17 +14,3 @@ if ENVIRONMENT == 'dev':
     MIDDLEWARE = [
         'debug_toolbar.middleware.DebugToolbarMiddleware',
     ] + MIDDLEWARE
-
-USE_TEST_DB = os.getenv('USE_TEST_DATABASE', False) == 'True'
-
-if USE_TEST_DB:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'test_scalade',
-            'USER': 'scaladeuser',
-            'PASSWORD': 'scaladepass',
-            'HOST': 'localhost',
-            'PORT': 5433,
-        },
-    }

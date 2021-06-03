@@ -24,7 +24,7 @@ SCALADE_VERSION = '1.0'
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'hispqyx@35wz3+2h^bk8brxmqie0f0@-j0dcdwrjic4$&o^f7o'
+SECRET_KEY = 'aispqyx@35wz3+2h^bk8brxmqie0f0@-j0dcdwrjic4$&o^f7o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'rest_framework',
+    'common',
     'accounts',
     'streams',
-    'rpc',
     'api',
 ]
 
@@ -182,10 +182,3 @@ K8S_PORT = os.getenv('K8S_PORT', 443)
 K8S_TOKEN = os.getenv('K8S_TOKEN', 'fakeToken')
 K8S_BASE_API_URL = os.getenv('K8S_BASE_API_URL', 'apis')
 K8S_NAMESPACE = os.getenv('K8S_NAMESPACE', 'default')
-
-# AWS INTEGRATION (with boto3)
-AWS_REGION_NAME = os.getenv('AWS_REGION_NAME', 'eu-west-3')
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-# DynamoDB
-DDB_BIMSG_TABLE = os.getenv('BIMSG_TABLE_NAME', 'brick_instance_messages')

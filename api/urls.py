@@ -2,7 +2,7 @@ from django.urls import path, include, re_path
 from rest_framework import routers
 from .views.accounts import WorkspaceViewSet, AccountViewSet, BusinessViewSetMixin, UserViewSetMixin
 from .views.auth import SignUpView, SignInView, SignOutView, ResetPasswordView
-from .views.runtime import GetFIContext, CreateFILogMessage, UpdateFIStatus, \
+from .views.runtime import RetrieveFIContext, CreateFILogMessage, UpdateFIStatus, \
     CreateFIOutput
 from .views.streams import StreamViewSet, FunctionTypeViewSet, FunctionInstanceViewSet, \
     VariableViewSet
@@ -43,8 +43,8 @@ auth_api_patterns = [
 # -------------------- #
 runtime_api_patterns = [
     # fi stands for FunctionInstance
-    path(r'runtime/retrieve-fi-context/', GetFIContext.as_view()),
-    path(r'runtime/create-fi-log/', CreateFILogMessage.as_view()),
+    path(r'runtime/retrieve-fi-context/', RetrieveFIContext.as_view()),
+    path(r'runtime/create-fi-log-message/', CreateFILogMessage.as_view()),
     path(r'runtime/update-fi-status/', UpdateFIStatus.as_view()),
     path(r'runtime/create-fi-output/', CreateFIOutput.as_view()),
 ]

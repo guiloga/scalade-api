@@ -3,7 +3,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    '192.168.1.225',
+    # '192.168.1.225',
     'scalade.io',
 ]
 

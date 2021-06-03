@@ -190,7 +190,7 @@ class UserModel(ModelContract):
     class Meta:
         ordering = ['-created', ]
         db_table = 'users'
-        verbose_name = 'Users'
+        verbose_name = 'User'
 
     def __str__(self):
         return f'{self.account.username}'

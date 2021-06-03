@@ -1,0 +1,30 @@
+[
+    {
+        "model": "streams.variablemodel",
+        "pk": "0c338e4d-d99e-4fe7-8b62-fedee29e56e1",
+        "fields": {
+            "created": "2021-06-03T10:31:01.657Z",
+            "iot": "output",
+            "id_name": "Names",
+            "type": "text",
+            "charset": "utf-8",
+            "bytes": "R3VpbGxlbSBMb3BleiBHYXJjaWEsQWxiZXJ0IExvcGV6IEdhcmNpYQ==",
+            "function_instance": "19c1868e-9e5b-4476-b03a-2b5b41207e4f",
+            "rank": 0
+        }
+    },
+    {
+        "model": "streams.variablemodel",
+        "pk": "7c032c0e-56d2-483f-9873-b1b6d21068bb",
+        "fields": {
+            "created": "2021-06-03T09:55:02.511Z",
+            "iot": "input",
+            "id_name": "TotalGetNames",
+            "type": "integer",
+            "charset": "utf-8",
+            "bytes": "Mw==",
+            "function_instance": "19c1868e-9e5b-4476-b03a-2b5b41207e4f",
+            "rank": 0
+        }
+    }
+]

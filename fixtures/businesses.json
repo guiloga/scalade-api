@@ -1,0 +1,12 @@
+[
+    {
+        "model": "accounts.businessmodel",
+        "pk": "0461f477-8194-4d3d-8c3a-1311f3d8eba4",
+        "fields": {
+            "created": "2021-06-03T09:37:15.522Z",
+            "master_account": "561ac10c-f66d-49f9-862f-598e621ecafa",
+            "organization_name": "My Company",
+            "organization_slug": "my-company"
+        }
+    }
+]

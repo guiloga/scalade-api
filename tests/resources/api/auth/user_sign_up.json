@@ -1,8 +1,8 @@
 {
   "organization_slug": "my-company",
-  "first_name": "Fake",
-  "last_name": "User",
-  "username": "fake_user",
-  "email": "fake.user@mycompany.com",
-  "password": "Three2Two2One1$"
+  "first_name": "User 1",
+  "last_name": "Test",
+  "username": "test_user_1",
+  "email": "test_user_1@mycompany.com",
+  "password": "Three3Two2One1$"
 }

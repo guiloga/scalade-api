@@ -1,0 +1,16 @@
+[
+    {
+        "model": "streams.functioninstancemodel",
+        "pk": "19c1868e-9e5b-4476-b03a-2b5b41207e4f",
+        "fields": {
+            "function_type": "732ef517-64fb-4fac-bccd-367e866be333",
+            "stream": "4549e57d-2f76-4755-9715-ebe2ca6badc7",
+            "position": "{\"row\": 0, \"col\": 0}",
+            "created": "2021-06-03T09:55:02.249Z",
+            "initialized": null,
+            "updated": "2021-06-03T09:55:02.249Z",
+            "completed": null,
+            "status": "pending"
+        }
+    }
+]
