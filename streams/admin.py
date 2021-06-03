@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from streams.models import StreamModel, FunctionTypeModel, FunctionInstanceModel, VariableModel
+from streams.models import StreamModel, FunctionTypeModel, FunctionInstanceModel, VariableModel, \
+    FunctionInstanceLogMessageModel
 
 
 @admin.register(StreamModel)
@@ -20,4 +21,9 @@ class FunctionInstanceAdmin(admin.ModelAdmin):
 
 @admin.register(VariableModel)
 class VariableAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(FunctionInstanceLogMessageModel)
+class FunctionInstanceLogMessageAdmin(admin.ModelAdmin):
     pass

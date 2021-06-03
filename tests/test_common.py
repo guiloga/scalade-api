@@ -1,8 +1,10 @@
 import pytest
+from uuid import uuid4
+
 import requests_mock
 
 from common.contracts import HttpClient
-from common.api import KubernetesHttpClient, KubernetesAPI, BrickInstanceMessagesApi
+from common.api import KubernetesHttpClient, KubernetesAPI
 from common.utils import ModelManager
 from streams.models import FunctionTypeModel, FunctionInstanceModel, VariableModel
 
@@ -43,6 +45,20 @@ class TestKubernetesAPI:
                         status_code=200)
             k8s_api.create('job', job_config)
 
+    @pytest.mark.usefixture('k8s_resources')
+    @pytest.mark.usefixtures('k8s_api')
+    def test_create_job(self, k8s_resources, k8s_api):
+        job_config = {**k8s_resources['job']}
+        id_ = uuid4()
+        job_config['metadata']['name'] = f'{id_.hex[:8]}-' + job_config['metadata']['name']
+
+        container_name = job_config['spec']['template']['spec']['containers'][0]['name']
+        job_config['spec']['template']['spec']['containers'][0]['name'] = (
+                f'{id_.hex[:8]}-' + container_name)
+
+        response = k8s_api.create('job', job_config)
+        assert response.status_code == 201
+
     @pytest.mark.usefixtures('k8s_api')
     def test_retrieve(self, k8s_api):
         pass
@@ -53,17 +69,4 @@ class TestKubernetesAPI:
 
     @pytest.mark.usefixtures('k8s_api')
     def test_delete(self, k8s_api):
-        pass
-
-
-class TestBrickInstanceMessagesApi:
-    def test_singleton(self):
-        msg_api_1 = BrickInstanceMessagesApi()
-        msg_api_2 = BrickInstanceMessagesApi()
-
-        assert msg_api_1 == msg_api_2
-
-
-class TestBrickInstanceMessagesRepository:
-    def test_get_all_bi_uuid(self):
         pass

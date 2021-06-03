@@ -25,10 +25,12 @@ class WorkspaceModel(ModelContract):
     objects = WorkspaceManager()
 
     class Meta:
+        ordering = ['-created', ]
         db_table = 'workspaces'
         constraints = [
             models.UniqueConstraint(fields=['name', 'business'], name='unique_name'),
         ]
+        verbose_name = 'Workspace'
 
     def __str__(self):
         return f'{self.business.organization_slug}:{self.name}'
@@ -106,7 +108,9 @@ class AccountModel(ModelContract, PermissionsMixin, AbstractBaseUser):
     objects = AccountManager()
 
     class Meta:
+        ordering = ['-created', ]
         db_table = 'accounts'
+        verbose_name = 'Account'
 
     def __str__(self):
         return f'{self.uuid}'
@@ -143,7 +147,10 @@ class BusinessModel(ModelContract):
     # company_logo = models.ImageField(null=True)
 
     class Meta:
+        ordering = ['-created', ]
         db_table = 'business'
+        verbose_name = 'Business'
+        verbose_name_plural = 'Businesses'
 
     def __str__(self):
         return f'{self.organization_name}'
@@ -181,7 +188,9 @@ class UserModel(ModelContract):
     objects = UserManager()
 
     class Meta:
+        ordering = ['-created', ]
         db_table = 'users'
+        verbose_name = 'User'
 
     def __str__(self):
         return f'{self.account.username}'

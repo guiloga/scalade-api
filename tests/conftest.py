@@ -9,7 +9,6 @@ from model_bakery import baker
 import pytest
 from scaladecore.utils import get_foo_function_config
 from scaladecore.variables import Variable
-from scaladecore.entities import BrickInstanceMessageEntity
 import yaml
 
 from common.api import KubernetesAPI
@@ -31,8 +30,7 @@ def django_db_setup(django_db_setup, django_db_blocker, function_config):
             'accounts.AccountModel',
             uuid=uuid4(),
             auth_id=fake.simple_profile()['username'],
-            username='test_business',
-            email='business@fakecompany.org', )
+            username='test_business', )
 
         business = baker.make(
             'accounts.BusinessModel',
@@ -44,8 +42,7 @@ def django_db_setup(django_db_setup, django_db_blocker, function_config):
             'accounts.AccountModel',
             uuid=uuid4(),
             auth_id='{0}/{1}'.format(business.short_uuid, 'test_user'),
-            username='test_user',
-            email='test_user@fakecompany.org', )
+            username='test_user', )
 
         user = baker.make(
             'accounts.UserModel',
@@ -112,22 +109,3 @@ def k8s_resources():
             resources[name] = yaml.safe_load(file)
 
     return resources
-
-
-@pytest.fixture(scope='session')
-def bi_messages():
-    def brick_instance_messages_factory():
-        fake_messages = ['Fake Message', 'Foo Bar',
-                         'Hello my name is Foo', 'Brick is running', ]
-        bi_uuid = uuid4()
-        msg_list = []
-        for msg in fake_messages:
-            msg_list.append(BrickInstanceMessageEntity(
-                uuid=uuid4(),
-                created=datetime.utcnow(),
-                bi_uuid=bi_uuid,
-                message=msg, ))
-
-        return msg_list
-
-    return brick_instance_messages_factory()

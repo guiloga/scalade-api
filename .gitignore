@@ -130,6 +130,7 @@ test.py
 .env
 .k8s_env
 run_consumer.sh
+notes.txt
 
 # Static files
 static/

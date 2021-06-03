@@ -1,0 +1,13 @@
+[
+    {
+        "model": "accounts.usermodel",
+        "pk": "b0442be3-6d21-431a-9e30-45f909eb9ac8",
+        "fields": {
+            "created": "2021-06-03T09:40:55.810Z",
+            "account": "cb4a4d2b-e4aa-4637-9d03-7d74b11a87b5",
+            "business": "0461f477-8194-4d3d-8c3a-1311f3d8eba4",
+            "first_name": "User 1",
+            "last_name": "Test"
+        }
+    }
+]

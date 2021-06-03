@@ -1,0 +1,12 @@
+[
+    {
+        "model": "streams.functioninstancelogmessagemodel",
+        "pk": "2d39c3bf-7f07-4272-95c5-052bd52abc31",
+        "fields": {
+            "created": "2021-06-03T10:37:24.149Z",
+            "function_instance": "19c1868e-9e5b-4476-b03a-2b5b41207e4f",
+            "log_message": "Hello, this is a test log message.",
+            "log_level": "info"
+        }
+    }
+]

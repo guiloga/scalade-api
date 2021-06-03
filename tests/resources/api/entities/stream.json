@@ -1,44 +1,23 @@
 {
   "spec": {
-    "name": "FakeStream",
+    "name": "TestRandomNames_1",
     "functions": [
       {
-        "type": "e7d852a9-fddc-4253-b07c-2e19fe211021",
+        "type": "732ef517-64fb-4fac-bccd-367e866be333",
         "position": {
           "row": 0,
           "col": 0
         },
         "inputs": [
           {
-            "id_name": "fake_input_1",
-            "bytes": "TXkgbmFtZSBpcyBGb28gYW5kIEkgbG92ZSBCYXJz"
-          },
-          {
-            "id_name": "fake_input_2",
-            "bytes": "MjAyMS0wMS0yNFQxOToxOTo1M1o="
-          }
-        ]
-      },
-      {
-        "type": "e7d852a9-fddc-4253-b07c-2e19fe211021",
-        "position": {
-          "row": 0,
-          "col": 1
-        },
-        "inputs": [
-          {
-            "id_name": "fake_input_1",
-            "bytes": "SGVsbG8gQmFyIQ=="
-          },
-          {
-            "id_name": "fake_input_2",
-            "bytes": "MjAyMS0wMS0yNVQwMTowNToxMlo="
+            "id_name": "TotalGetNames",
+            "bytes": "Mw=="
           }
         ]
       }
     ]
   },
   "metadata": {
-    "workspace": "default"
+    "workspace": "test_user_1-default"
   }
 }

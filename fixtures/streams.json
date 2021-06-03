@@ -1,0 +1,16 @@
+[
+    {
+        "model": "streams.streammodel",
+        "pk": "4549e57d-2f76-4755-9715-ebe2ca6badc7",
+        "fields": {
+            "name": "TestRandomNames_1",
+            "created": "2021-06-03T09:55:01.911Z",
+            "pushed": null,
+            "updated": "2021-06-03T09:55:01.911Z",
+            "finished": null,
+            "status": "settled",
+            "workspace": "0be47ce4-a2e9-471f-b92a-a25c7811e261",
+            "account": "cb4a4d2b-e4aa-4637-9d03-7d74b11a87b5"
+        }
+    }
+]

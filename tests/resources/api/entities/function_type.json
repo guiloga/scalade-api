@@ -1,29 +1,19 @@
 {
-  "key": "foobar",
-  "verbose_name": "FooBar Sleep",
-  "description": "This is the fixture function called FooBar for testing purpose.",
+  "key": "random_person_names",
+  "verbose_name": "Random Person Names",
+  "description": "This function generatesa desired number of random person names (i.e Guillem López Garcia).",
   "inputs": [
     {
-      "id_name": "fake_input_1",
-      "type": "text",
-      "verbose_name": "Fake Input 1"
-    },
-    {
-      "id_name": "fake_input_2",
-      "type": "datetime",
-      "verbose_name": "Fake Input 2"
+      "id_name": "TotalGetNames",
+      "type": "integer",
+      "verbose_name": "Total names to generate"
     }
   ],
   "outputs": [
     {
-      "id_name": "fake_output_1",
+      "id_name": "Names",
       "type": "text",
-      "verbose_name": "Fake Output 1"
-    },
-    {
-      "id_name": "fake_output_2",
-      "type": "boolean",
-      "verbose_name": "Fake Output 2"
+      "verbose_name": "List of generated names (separated by commas)"
     }
   ]
 }

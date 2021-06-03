@@ -7,7 +7,8 @@ from scaladecore.config import InputConfig
 from scaladecore.utils import ID_NAME_REGEX, decode_b64str
 
 from api.serializers import BaseSerializer, ListItemsWithURLSerializer
-from streams.models import StreamModel, FunctionTypeModel, FunctionInstanceModel, VariableModel
+from streams.models import StreamModel, FunctionTypeModel, FunctionInstanceModel, VariableModel, \
+    FunctionInstanceLogMessageModel
 from common.utils import ModelManager, validate_b64_encoded
 
 
@@ -361,6 +362,27 @@ class StreamListSerializer(ListItemsWithURLSerializer):
 
     def get_account(self, obj):
         return obj.account.uuid
+
+
+class FunctionInstanceLogMessageSerializer(serializers.ModelSerializer):
+    """
+    FunctionInstanceLogMessageModel detail serializer.
+    """
+    class Meta:
+        model = FunctionInstanceLogMessageModel
+        fields = '__all__'
+
+
+class FunctionInstanceLogMessageListSerializer(ListItemsWithURLSerializer):
+    """
+    FunctionInstanceLogMessageModel list serializer.
+    """
+    url_basename = 'entities-api:function_instance_log_messages-detail'
+    url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = FunctionInstanceLogMessageModel
+        fields = ['function_instance', 'created', 'log_message']
 
 
 def uuid_validation_error(res_uuid):

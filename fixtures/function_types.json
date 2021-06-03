@@ -1,0 +1,16 @@
+[
+    {
+        "model": "streams.functiontypemodel",
+        "pk": "732ef517-64fb-4fac-bccd-367e866be333",
+        "fields": {
+            "key": "cb4a4d2b/random_person_names",
+            "verbose_name": "Random Person Names",
+            "description": "This function generatesa desired number of random person names (i.e Guillem López Garcia).",
+            "created": "2021-06-03T09:47:47.836Z",
+            "updated": "2021-06-03T09:47:47.836Z",
+            "inputs": "[{\"id_name\": \"TotalGetNames\", \"type\": \"integer\", \"verbose_name\": \"Total names to generate\", \"__rank__\": 0}]",
+            "outputs": "[{\"id_name\": \"Names\", \"type\": \"text\", \"verbose_name\": \"List of generated names (separated by commas)\", \"__rank__\": 0}]",
+            "account": "cb4a4d2b-e4aa-4637-9d03-7d74b11a87b5"
+        }
+    }
+]

@@ -6,7 +6,7 @@ from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 
 from scaladecore.entities import FunctionTypeEntity, StreamEntity, VariableEntity, \
-    FunctionInstanceEntity
+    FunctionInstanceEntity, FunctionInstanceLogMessageEntity
 from scaladecore.config import InputConfig, OutputConfig, PositionConfig
 from scaladecore.variables import Variable
 
@@ -36,6 +36,7 @@ class FunctionTypeModel(ModelContract):
     class Meta:
         ordering = ['-created', ]
         db_table = 'function_types'
+        verbose_name = 'Function Type'
 
     @property
     def to_entity(self) -> FunctionTypeEntity:
@@ -85,6 +86,7 @@ class StreamModel(ModelContract):
     class Meta:
         ordering = ['-created', ]
         db_table = 'streams'
+        verbose_name = 'Stream'
 
     @property
     def to_entity(self) -> StreamEntity:
@@ -126,6 +128,7 @@ class FunctionInstanceModel(ModelContract):
     class Meta:
         ordering = ['-created', ]
         db_table = 'function_instances'
+        verbose_name = 'Function Instance'
 
     @property
     def to_entity(self):
@@ -196,6 +199,7 @@ class VariableModel(ModelContract):
     class Meta:
         ordering = ['-created', ]
         db_table = 'variables'
+        verbose_name = 'Variable'
 
     @property
     def to_entity(self) -> VariableEntity:
@@ -232,3 +236,30 @@ class VariableModel(ModelContract):
             rank=rank)
         variable.save()
         return variable, None
+
+
+class FunctionInstanceLogMessageModel(ModelContract):
+    uuid = models.UUIDField(primary_key=True,
+                            default=uuid4,
+                            editable=False,
+                            verbose_name='Resource Identifier')
+    created = models.DateTimeField(auto_now_add=True)
+    function_instance = models.ForeignKey(FunctionInstanceModel, on_delete=models.CASCADE,
+                                          related_name='log_messages')
+    log_message = models.CharField(max_length=500)
+    log_level = models.CharField(max_length=50,
+                                 choices=FunctionInstanceLogMessageEntity.LOG_LEVELS,
+                                 default='info')
+
+    class Meta:
+        ordering = ['-created', ]
+        db_table = 'function_instance_log_messages'
+        verbose_name = 'Function Instance Log Message'
+
+    def to_entity(self) -> FunctionInstanceLogMessageEntity:
+        return FunctionInstanceLogMessageEntity(
+            uuid=self.uuid,
+            created=self.created,
+            fi_uuid=self.function_instance.uuid,
+            log_message=self.log_message,
+            log_level=self.log_level, )

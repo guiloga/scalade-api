@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from scaladecore.utils import decode_b64str
 
-from api.serializers.runtime import UpdateFIStatusSerializer, CreateFIOutputSerializer
+from api.serializers.runtime import UpdateFIStatusSerializer, CreateFIOutputSerializer, \
+    CreateFILogMessageSerializer
 from common.exceptions import InconsistentStateChangeError
 from common.utils import DecoratorShipper as Decorators
 from common.utils import ModelManager
@@ -22,7 +23,7 @@ def _query_serialized_function_variables(function_instance, iot):
     return [var_.to_entity.as_dict for var_ in variables]
 
 
-class GetFIContext(APIView):
+class RetrieveFIContext(APIView):
     """
     Retrieves the runtime Context data of the underlying FunctionInstance.
     """
@@ -47,7 +48,17 @@ class CreateFILogMessage(APIView):
 
     @Decorators.extract_fi_from_token
     def post(self, request):
-        # TODO: Required refactor of FunctionInstance log messages before implementing this.
+        serializer = CreateFILogMessageSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        fi_log_message = ModelManager.handle(
+            'streams.FunctionInstanceLogMessage',
+            'create',
+            function_instance=request.fi,
+            log_message=serializer.validated_data['log_message'],
+            log_level=serializer.validated_data['log_level'], )
+
+        # TODO: Send changes trough a socket to application client
+
         return Response(status=HTTP_200_OK)
 
 
@@ -102,6 +113,8 @@ class CreateFIOutput(APIView):
             return Response(
                 data={'error': err_msg},
                 status=HTTP_409_CONFLICT)
+
+        # TODO: Send changes trough a socket to application client
 
         outputs = _query_serialized_function_variables(request.fi, 'output')
         return Response(
