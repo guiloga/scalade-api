@@ -28,7 +28,8 @@ class WorkspaceModel(ModelContract):
         ordering = ['-created', ]
         db_table = 'workspaces'
         constraints = [
-            models.UniqueConstraint(fields=['name', 'business'], name='unique_name'),
+            models.UniqueConstraint(
+                fields=['name', 'business'], name='unique_name'),
         ]
         verbose_name = 'Workspace'
 
@@ -51,7 +52,8 @@ class AccountModel(ModelContract, PermissionsMixin, AbstractBaseUser):
                             verbose_name='Resource Identifier')
     created = models.DateTimeField(auto_now_add=True)
     auth_id = models.CharField(
-        error_messages={'unique': 'An account with that auth_id already exists.'},
+        error_messages={
+            'unique': 'An account with that auth_id already exists.'},
         help_text='It is the authentication identifier for login, '
                   'composed by (business_id/username).',
         max_length=150,
@@ -80,8 +82,10 @@ class AccountModel(ModelContract, PermissionsMixin, AbstractBaseUser):
         help_text='Designates whether this user should be treated as active. '
                   'Unselect this instead of deleting accounts.',
         verbose_name='active status')
-    date_joined = models.DateTimeField(default=timezone.now, verbose_name='date joined')
-    last_login = models.DateTimeField(blank=True, null=True, verbose_name='last login')
+    date_joined = models.DateTimeField(
+        default=timezone.now, verbose_name='date joined')
+    last_login = models.DateTimeField(
+        blank=True, null=True, verbose_name='last login')
     groups = models.ManyToManyField(
         'auth.Group',
         blank=True,
@@ -99,6 +103,7 @@ class AccountModel(ModelContract, PermissionsMixin, AbstractBaseUser):
         verbose_name='user permissions')
     workspaces = models.ManyToManyField(WorkspaceModel,
                                         blank=True,
+                                        related_name='accounts',
                                         help_text='Workspaces related to this account.',
                                         verbose_name='related workspaces')
 

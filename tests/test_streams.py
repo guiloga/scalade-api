@@ -1,8 +1,9 @@
-from uuid import uuid4
 import pytest
+
 from scaladecore.entities import FunctionTypeEntity, StreamEntity, FunctionInstanceEntity, \
-    VariableEntity
+    VariableEntity, FunctionInstanceLogMessageEntity
 from scaladecore.variables import Variable
+
 from common.utils import ModelManager
 from streams.models import VariableModel
 
@@ -66,5 +67,11 @@ class TestVariableModel:
         assert var_orm.rank == 0
 
 
-# TODO: Test accounts models
-# TODO: Test FunctionInstanceLogMessageModel
+class TestFunctionInstanceLogMessageModel:
+    @pytest.mark.django_db
+    def test_to_entity(self):
+        log_messages = ModelManager.handle(
+            'streams.FunctionInstanceLogMessageModel',
+            'all')
+        for lm in log_messages:
+            assert isinstance(lm.to_entity, FunctionInstanceLogMessageEntity)

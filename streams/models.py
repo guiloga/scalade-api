@@ -256,6 +256,7 @@ class FunctionInstanceLogMessageModel(ModelContract):
         db_table = 'function_instance_log_messages'
         verbose_name = 'Function Instance Log Message'
 
+    @property
     def to_entity(self) -> FunctionInstanceLogMessageEntity:
         return FunctionInstanceLogMessageEntity(
             uuid=self.uuid,
