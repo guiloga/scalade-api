@@ -16,6 +16,7 @@ PyJWT = {extras = ["crypto"], version = "^2.1.0"}
 Faker = "^8.1.4"
 django-debug-toolbar = "^3.2.1"
 PyYAML = "^5.4.1"
+django-cors-headers = "^3.7.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"

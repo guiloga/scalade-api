@@ -21,34 +21,30 @@ from django.middleware.csrf import get_token
 from django.views import View
 from django.views.generic import RedirectView
 from django.urls import path, include, re_path
+import json
 
-from .views import LandingView
 import settings
 
 
-class SetCSRFTokenView(View):
+class GetCSRFTokenView(View):
     def get(self, request):
-        response = HttpResponse()
         token = get_token(request)
-        response.set_cookie('csrftoken', value=token)
+        response = HttpResponse(
+            content=json.dumps({'csrftoken': token}),
+            content_type='application/json')
         return response
 
 
-urlpatterns = [
-    re_path(r'^favicon\.png$', RedirectView.as_view(url='/static/assets/img/favicon.png')),
+urlpatterns=[
+    re_path(r'^favicon\.png$', RedirectView.as_view(
+        url='/static/assets/img/favicon.png')),
     path('admin/', admin.site.urls),
     # path('', RedirectView.as_view(pattern_name='accounts:login', permanent=False)),
     path('logout/', auth_views.LogoutView.as_view(),
          name='logout'),
 
-    # void view that sets csrftoken cookie to Agent client
-    path('set-csrftoken/', SetCSRFTokenView.as_view(), name='set-csrftoken'),
-
-    # info
-    path('', LandingView.as_view(), name='landing'),
-
-    path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
-    path('app/', include('streams.urls')),
+    # view that gets a new CRFToken to Agent client
+    path('get-csrftoken/', GetCSRFTokenView.as_view(), name='get-csrftoken'),
 
     # API
     path('api/v%s/' % settings.SCALADE_VERSION[0], include('api.urls')),
@@ -63,4 +59,3 @@ if settings.DEBUG:
     ]
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
-

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'rest_framework',
+    'corsheaders',
     'common',
     'accounts',
     'streams',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -171,6 +173,15 @@ REST_FRAMEWORK = {
     ],
     'DATETIME_FORMAT': ISO_8601_FORMAT,
 }
+
+
+# Django CORS
+CORS_ALLOWED_ORIGINS = [
+    "http://scalade.io",
+    "https://scalade.io",
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+]
 
 
 # RESOURCES DIR
