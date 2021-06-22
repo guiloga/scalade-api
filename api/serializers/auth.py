@@ -25,7 +25,7 @@ class SignUpSerializer(BaseSerializer):
     def get_account_creation_data(validated_data: dict):
         creation_data = {
             'organization_slug': validated_data['organization_slug'],
-            'username': validated_data.get('username') or validated_data['organization_slug'],
+            'username': validated_data.get('username') or 'master',
             'email': validated_data['email'],
             'password': validated_data['password'],
         }
@@ -42,8 +42,8 @@ class BusinessSignUpSerializer(EmailValidatorMixin, SignUpSerializer):
         account = ModelManager.handle(
             'accounts.account',
             'create_account',
-            **account_creation_data,
-            is_business=True, )
+            **account_creation_data, )
+        account.groups.add(1) # business_administrator
 
         business_creation_data = {
             'master_account': account,
@@ -76,11 +76,11 @@ class BusinessSignUpSerializer(EmailValidatorMixin, SignUpSerializer):
 
 
 class UserSignUpSerializer(EmailValidatorMixin, SignUpSerializer):
-    organization_slug = serializers.CharField(min_length=4, max_length=150,
-                                              required=False)
+    organization_slug = serializers.CharField(min_length=4, max_length=150)
     first_name = serializers.CharField(min_length=2, max_length=150)
     last_name = serializers.CharField(min_length=2, max_length=150)
-    username = serializers.CharField(max_length=150,
+    username = serializers.CharField(min_length=4,
+                                     max_length=150,
                                      validators=[
                                          UnicodeUsernameValidator(), ])
 
@@ -90,6 +90,7 @@ class UserSignUpSerializer(EmailValidatorMixin, SignUpSerializer):
             'accounts.account',
             'create_account',
             **account_creation_data, )
+        account.groups.add(2) # developer
 
         user_creation_data = {
             'account': account,
@@ -120,7 +121,8 @@ class UserSignUpSerializer(EmailValidatorMixin, SignUpSerializer):
 
 
 class SignInSerializer(BaseSerializer):
-    identifier = serializers.CharField(max_length=254)  # either an auth_id or an email address
+    # either an auth_id or an email address
+    identifier = serializers.CharField(max_length=254)
     password = serializers.CharField(max_length=128)
 
     def validate(self, attrs):

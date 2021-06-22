@@ -69,7 +69,7 @@ def _bake_fixtures(function_config):
     user_account = baker.make(
         'accounts.AccountModel',
         uuid=uuid4(),
-        auth_id='{0}/{1}'.format(business.short_uuid, 'test_user'),
+        auth_id='{0}:{1}'.format(business.organization_slug, 'test_user'),
         username='test_user', )
 
     user = baker.make(
@@ -92,7 +92,7 @@ def _bake_fixtures(function_config):
     function_type = baker.make(
         'streams.FunctionTypeModel',
         uuid=uuid4(),
-        key=f'{user.short_uuid}/fake-function',
+        key=f'{user.auth_id}/fake-function:latest',
         verbose_name='Fake Function',
         description='Fake function description.',
         inputs=function_config.inputs_as_json,

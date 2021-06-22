@@ -55,7 +55,7 @@ class AccountModel(ModelContract, PermissionsMixin, AbstractBaseUser):
         error_messages={
             'unique': 'An account with that auth_id already exists.'},
         help_text='It is the authentication identifier for login, '
-                  'composed by (business_id/username).',
+                  'composed by (organization_slug:username).',
         max_length=150,
         unique=True,
         verbose_name='auth id')

@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from settings.common import DEBUG
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
@@ -26,29 +27,37 @@ import json
 import settings
 
 
-class GetCSRFTokenView(View):
+class SetCSRFTokenView(View):
     def get(self, request):
+        """Void view to set a csrftoken Cookie"""
         token = get_token(request)
-        response = HttpResponse(
-            content=json.dumps({'csrftoken': token}),
-            content_type='application/json')
+        response = HttpResponse()
+        response.set_cookie('csrftoken', value=token)
+        # response = HttpResponse(
+        #    content=json.dumps({'csrftoken': token}),
+        #    content_type='application/json')
         return response
+
+class CheckActiveSession(View):
+    def get(self, request):
+        return HttpResponse(
+            content=json.dumps({'success': request.user.is_authenticated}),
+            content_type='application/json')
 
 
 urlpatterns=[
     re_path(r'^favicon\.png$', RedirectView.as_view(
         url='/static/assets/img/favicon.png')),
     path('admin/', admin.site.urls),
-    # path('', RedirectView.as_view(pattern_name='accounts:login', permanent=False)),
-    path('logout/', auth_views.LogoutView.as_view(),
-         name='logout'),
 
-    # view that gets a new CRFToken to Agent client
-    path('get-csrftoken/', GetCSRFTokenView.as_view(), name='get-csrftoken'),
+    # view that sets a new CRFToken to Agent client
+    path('set-csrftoken/', SetCSRFTokenView.as_view(), name='set-csrftoken'),
+    # view that checks if current session is active
+    path('check-session/', CheckActiveSession.as_view(), name='check-session'),
 
     # API
     path('api/v%s/' % settings.SCALADE_VERSION[0], include('api.urls')),
-    path('api-auth/', include('rest_framework.urls'))
+    path('api-auth/', include('rest_framework.urls')) if settings.DEBUG else []
 ]
 
 # serve media files in Development

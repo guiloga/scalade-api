@@ -16,3 +16,5 @@ DATABASES = {
         'PORT': 5432,
     },
 }
+
+SESSION_COOKIE_SECURE = True

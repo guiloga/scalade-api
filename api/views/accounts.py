@@ -7,6 +7,7 @@ from api.serializers.accounts import WorkspaceCreationSerializer, WorkspaceSeria
     WorkspaceListSerializer, AccountSerializer, AccountListSerializer, BusinessSerializer, \
     BusinessListSerializer, UserSerializer, UserListSerializer
 from common.utils import ModelManager
+from common.utils import DecoratorShipper as Decorators
 from api.views import BaseAPIViewSet
 from api.views.mixins import ReadOnlyWithNoFiltersViewSetMixin, ListViewSetMixin, \
     RetrieveViewSetMixin
@@ -20,6 +21,11 @@ class WorkspaceViewSet(ListViewSetMixin, RetrieveViewSetMixin, BaseAPIViewSet):
     ListSerializer = WorkspaceListSerializer
     RetrieveSerializer = WorkspaceSerializer
 
+    @Decorators.with_permission('accounts.view_workspacemodel')
+    def list(self, request):
+        return super().list(request)
+
+    @Decorators.with_permission('accounts.add_workspacemodel')
     def create(self, request):
         creation_serializer = WorkspaceCreationSerializer(
             data=request.data)
@@ -31,6 +37,10 @@ class WorkspaceViewSet(ListViewSetMixin, RetrieveViewSetMixin, BaseAPIViewSet):
         return Response(serializer.data,
                         status=HTTP_201_CREATED)
 
+    @Decorators.with_permission('accounts.view_workspacemodel')
+    def retrieve(self, request, uuid):
+        return super().retrieve(request, uuid=uuid)
+
 
 class AccountViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
     """
@@ -41,25 +51,27 @@ class AccountViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
 
     VALID_FILTERS = ('is_staff', 'is_active', 'related_to_workspace',)
 
+    @Decorators.with_permission('accounts.view_accountmodel')
     def list(self, request):
         filters = {}
         initial_queryset = None
         for key, value in request.query_params.items():
-            if key not in self.VALID_FILTERS:
-                raise ParseError(
-                    detail=f'Invalid query filters: valid ones are {self.VALID_FILTERS}')
-            if key in ['is_staff', 'is_active']:
-                filters[key] = True if value == 'true' else False
-            elif key == 'related_to_workspace':
-                workspace_uuid = request.query_params.get('related_to_workspace')
-                try:
-                    workspace = ModelManager.handle(
-                        'accounts.workspace',
-                        'get',
-                        uuid=workspace_uuid)
-                except ObjectDoesNotExist:
-                    raise ParseError("Workspace '%s' doesn't exist." % workspace_uuid)
-                initial_queryset = workspace.accountmodel_set.all()
+            self.check_filter(key)
+            if key not in ['limit', 'offset']:
+                if key in ['is_staff', 'is_active']:
+                    filters[key] = True if value == 'true' else False
+                elif key == 'related_to_workspace':
+                    workspace_uuid = request.query_params.get(
+                        'related_to_workspace')
+                    try:
+                        workspace = ModelManager.handle(
+                            'accounts.workspace',
+                            'get',
+                            uuid=workspace_uuid)
+                    except ObjectDoesNotExist:
+                        raise ParseError(
+                            "Workspace '%s' doesn't exist." % workspace_uuid)
+                    initial_queryset = workspace.accountmodel_set.all()
 
         if initial_queryset:
             accounts = initial_queryset.filter(**filters)
@@ -69,18 +81,24 @@ class AccountViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
                 'filter',
                 **filters, )
 
-        items, pg_metadata = self.filter_paginated_results(request, accounts)
-        list_serializer = AccountListSerializer(items, many=True, request=request)
+        items, metadata = self.filter_paginated_results(request, accounts)
+        list_serializer = AccountListSerializer(
+            items, many=True, request=request)
         response_data = {
             'total_queryset': len(accounts),
             'count': len(items),
             'data': list_serializer.data,
             'metadata': {
-                **pg_metadata
+                **metadata,
+                **{'valid_filters': self.VALID_FILTERS}
             }
         }
         return Response(response_data,
                         status=HTTP_200_OK)
+
+    @Decorators.with_permission('accounts.view_accountmodel')
+    def retrieve(self, request, uuid):
+        return super().retrieve(request, uuid=uuid)
 
 
 class BusinessViewSetMixin(ReadOnlyWithNoFiltersViewSetMixin, BaseAPIViewSet):
@@ -91,6 +109,14 @@ class BusinessViewSetMixin(ReadOnlyWithNoFiltersViewSetMixin, BaseAPIViewSet):
     ListSerializer = BusinessListSerializer
     RetrieveSerializer = BusinessSerializer
 
+    @Decorators.with_permission('accounts.view_businessmodel')
+    def list(self, request):
+        return super().list(request)
+
+    @Decorators.with_permission('accounts.view_businessmodel')
+    def retrieve(self, request, uuid):
+        return super().retrieve(request, uuid=uuid)
+
 
 class UserViewSetMixin(ReadOnlyWithNoFiltersViewSetMixin, BaseAPIViewSet):
     """
@@ -99,3 +125,11 @@ class UserViewSetMixin(ReadOnlyWithNoFiltersViewSetMixin, BaseAPIViewSet):
     app_model_name = 'accounts.user'
     ListSerializer = UserListSerializer
     RetrieveSerializer = UserSerializer
+
+    @Decorators.with_permission('accounts.view_usermodel')
+    def list(self, request):
+        return super().list(request)
+
+    @Decorators.with_permission('accounts.view_usermodel')
+    def retrieve(self, request, uuid):
+        return super().retrieve(request, uuid=uuid)

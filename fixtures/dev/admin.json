@@ -5,8 +5,8 @@
         "fields": {
             "created": "2021-06-03T09:27:41.902Z",
             "auth_id": "scalade",
-            "username": "scalade",
-            "email": "admin@scalade.com",
+            "username": "master",
+            "email": "master@scalade.com",
             "password": "pbkdf2_sha256$216000$sBXukF9atv0N$PqRwmT/bB+nLsh37FRMWzrD5BxCKoWJ7EtWztZtdT14=",
             "is_staff": true,
             "is_superuser": true,

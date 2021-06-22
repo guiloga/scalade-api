@@ -1,6 +1,6 @@
-from typing import Type
+from typing import Type, Tuple
 from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.exceptions import NotFound
+from rest_framework.exceptions import NotFound, ParseError
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 from rest_framework import viewsets
@@ -30,16 +30,17 @@ class BaseAPIViewSet(viewsets.ViewSet):
 
     def destroy(self, request, uuid=None):
         raise MethodNotAllowed()
-    
+
 
 class BaseAPIViewSetSetMixin(UUIDLookupMixin):
     app_model_name: str = None
+    VALID_FILTERS: Tuple = None
+    PAGINATION_FILTERS = ('limit', 'offset')
 
-    @staticmethod
-    def filter_paginated_results(request, query_set):
-        limit, offset = (int(request.query_params.get('limit', 10)),
-                         int(request.query_params.get('offset', 0)))
-        items = query_set[offset:(offset+limit)]
+    def filter_paginated_results(self, request, queryset):
+        limit, offset = (int(request.query_params.get(self.PAGINATION_FILTERS[0], 10)),
+                         int(request.query_params.get(self.PAGINATION_FILTERS[1], 0)))
+        items = queryset[offset:(offset+limit)]
         pagination_metadata = {
             'pagination': {
                 'limit': limit,
@@ -48,24 +49,53 @@ class BaseAPIViewSetSetMixin(UUIDLookupMixin):
         }
         return items, pagination_metadata
 
+    def apply_list_filters(self, request) -> Tuple:
+        filters = self.build_filters(request)
+        try:
+            queryset = ModelManager.handle(
+                self.app_model_name,
+                'filter',
+                **filters, )
+            items, metadata = self.filter_paginated_results(request, queryset)
+        except:
+            self.raise_invalid_filters_error()
+
+        metadata = dict(**metadata, **{'valid_filters': self.VALID_FILTERS})
+        return len(queryset), items, metadata
+
+    def build_filters(self, request) -> dict:
+        filters = {}
+        for key, value in request.query_params.items():
+            self.check_filter(key)
+            if key not in ['limit', 'offset']:
+                filters[key] = value
+        return filters
+
+    def check_filter(self, filter):
+        if filter not in self.PAGINATION_FILTERS and filter not in self.VALID_FILTERS:
+            self.raise_invalid_filters_error()
+
+    def raise_invalid_filters_error(self):
+        raise ParseError(
+            detail=f'Invalid query filters: valid ones are {self.VALID_FILTERS}')
+
 
 class ListViewSetMixin(BaseAPIViewSetSetMixin):
     """
-    Simple list ViewSet mixin without list filters params.
+    Simple list ViewSet mixin filtering with all get params passed in the request.
     """
     ListSerializer: Type[serializers.Serializer] = None
 
     def list(self, request):
-        resources = ModelManager.handle(self.app_model_name, 'all')
-        items, pg_metadata = self.filter_paginated_results(request, resources)
-
-        list_serializer = self.ListSerializer(items, many=True, request=request)
+        total_queryset, items, metadata = self.apply_list_filters(request)
+        list_serializer = self.ListSerializer(
+            items, many=True, request=request)
         response_data = {
-            'total_queryset': len(resources),
+            'total_queryset': total_queryset,
             'count': len(items),
             'data': list_serializer.data,
             'metadata': {
-                **pg_metadata
+                **metadata
             }
         }
         return Response(response_data,
@@ -80,9 +110,11 @@ class RetrieveViewSetMixin(BaseAPIViewSetSetMixin):
 
     def retrieve(self, request, uuid=None):
         try:
-            resource = ModelManager.handle(self.app_model_name, 'get', uuid=uuid)
+            resource = ModelManager.handle(
+                self.app_model_name, 'get', uuid=uuid)
         except ObjectDoesNotExist:
-            raise NotFound(detail=f"resource identifier: '{uuid}' doesn't exist.")
+            raise NotFound(
+                detail=f"resource identifier: '{uuid}' doesn't exist.")
 
         serializer = self.RetrieveSerializer(resource)
         return Response(

@@ -12,8 +12,9 @@ from api.serializers.streams import FunctionTypeCreationSerializer, FunctionType
     VariableCreationSerializer, VariableSerializer, VariableListSerializer
 
 from api.views import BaseAPIViewSet
-from api.views.mixins import RetrieveViewSetMixin
+from api.views.mixins import ListViewSetMixin, RetrieveViewSetMixin
 from common.utils import ModelManager, validate_b64_encoded
+from common.utils import DecoratorShipper as Decorators
 from streams.models import FunctionInstanceModel
 
 
@@ -26,36 +27,23 @@ class FunctionTypeViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
 
     VALID_FILTERS = ('username', 'key', )
 
+    @Decorators.with_permission('streams.view_functiontypemodel')
     def list(self, request):
-        filters = {}
-        for key, value in request.query_params.items():
-            if key == 'username':
-                filters['account__username'] = value
-            else:
-                if key not in ['limit', 'offset']:
-                    filters[key] = value
-        try:
-            fts = ModelManager.handle(
-                'streams.functiontype',
-                'filter',
-                **filters, )
-            items, pg_metadata = self.filter_paginated_results(request, fts)
-        except:
-            raise ParseError(
-                detail=f'Invalid query filters: valid ones are {self.VALID_FILTERS}')
-
-        list_serializer = FunctionTypeListSerializer(items, many=True, request=request)
+        total_queryset, items, metadata = self.apply_list_filters(request)
+        list_serializer = FunctionTypeListSerializer(
+            items, many=True, request=request)
         response_data = {
-            'total_queryset': len(fts),
+            'total_queryset': total_queryset,
             'count': len(items),
             'data': list_serializer.data,
             'metadata': {
-                **pg_metadata
+                **metadata
             }
         }
         return Response(response_data,
                         status=HTTP_200_OK)
 
+    @Decorators.with_permission('streams.add_functiontypemodel')
     def create(self, request):
         creation_serializer = FunctionTypeCreationSerializer(
             data={**request.data,
@@ -68,6 +56,20 @@ class FunctionTypeViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
         return Response(serializer.data,
                         status=HTTP_201_CREATED)
 
+    @Decorators.with_permission('streams.view_functiontypemodel')
+    def retrieve(self, request, uuid):
+        return super().retrieve(request, uuid=uuid)
+
+    def build_filters(self, request) -> dict:
+        filters = {}
+        for key, value in request.query_params.items():
+            if key == 'username':
+                filters['account__username'] = value
+            else:
+                if key not in ['limit', 'offset']:
+                    filters[key] = value
+        return filters
+
 
 class StreamViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
     """
@@ -78,37 +80,23 @@ class StreamViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
 
     VALID_FILTERS = ('username', 'name', 'status', 'status__in', )
 
+    @Decorators.with_permission('streams.view_streammodel')
     def list(self, request):
-        filters = {}
-        for key, value in request.query_params.items():
-            if key == 'username':
-                filters['user__username'] = value
-            elif key == 'status__in':
-                filters[key] = value.split(',')
-            else:
-                filters[key] = value
-        try:
-            streams = ModelManager.handle(
-                'streams.stream',
-                'filter',
-                **filters, )
-            items, pg_metadata = self.filter_paginated_results(request, streams)
-        except:
-            raise ParseError(
-                detail=f'Invalid query filters: valid ones are {self.VALID_FILTERS}')
-
-        list_serializer = StreamListSerializer(items, many=True, request=request)
+        total_queryset, items, metadata = self.apply_list_filters(request)
+        list_serializer = StreamListSerializer(
+            items, many=True, request=request)
         response_data = {
-            'total_queryset': len(streams),
+            'total_queryset': total_queryset,
             'count': len(items),
             'data': list_serializer.data,
             'metadata': {
-                **pg_metadata
+                **metadata
             }
         }
         return Response(response_data,
                         status=HTTP_200_OK)
 
+    @Decorators.with_permission('streams.add_streammodel')
     def create(self, request):
         # TODO: Initial validation of function inputs (required ones and values for text, integer and datetime).
         stream_creation_serializer = StreamCreationSerializer(
@@ -150,6 +138,11 @@ class StreamViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
         return Response(stream_serializer.data,
                         status=HTTP_201_CREATED)
 
+    @Decorators.with_permission('streams.view_streammodel')
+    def retrieve(self, request, uuid):
+        return super().retrieve(request, uuid=uuid)
+
+    @Decorators.with_permission('streams.delete_streammodel')
     def destroy(self, request, uuid=None):
         try:
             st = ModelManager.handle(
@@ -157,13 +150,25 @@ class StreamViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
                 'get',
                 uuid=uuid, )
         except ObjectDoesNotExist:
-            raise NotFound(detail=f"resource identifier: '{uuid}' doesn't exist.")
+            raise NotFound(
+                detail=f"resource identifier: '{uuid}' doesn't exist.")
 
         st.cancel()
 
         serializer = StreamSerializer(st)
         return Response(serializer.data,
                         status=HTTP_200_OK)
+
+    def build_filters(self, request) -> dict:
+        filters = {}
+        for key, value in request.query_params.items():
+            if key == 'username':
+                filters['user__username'] = value
+            elif key == 'status__in':
+                filters[key] = value.split(',')
+            else:
+                filters[key] = value
+        return filters
 
 
 class FunctionInstanceViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
@@ -175,7 +180,27 @@ class FunctionInstanceViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
 
     VALID_FILTERS = ('function_type', 'stream', 'status', 'status__in')
 
+    @Decorators.with_permission('streams.view_functioninstancemodel')
     def list(self, request):
+        total_queryset, items, metadata = self.apply_list_filters(request)
+        list_serializer = FunctionInstanceListSerializer(
+            items, many=True, request=request)
+        response_data = {
+            'total_queryset': total_queryset,
+            'count': len(items),
+            'data': list_serializer.data,
+            'metadata': {
+                **metadata
+            }
+        }
+        return Response(response_data,
+                        status=HTTP_200_OK)
+
+    @Decorators.with_permission('streams.view_functioninstancemodel')
+    def retrieve(self, request, uuid):
+        return super().retrieve(request, uuid=uuid)
+
+    def build_filters(self, request) -> dict:
         filters = {}
         for key, value in request.query_params.items():
             if key == 'status__in':
@@ -183,65 +208,28 @@ class FunctionInstanceViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
             else:
                 if key not in ['limit', 'offset']:
                     filters[key] = value
-        try:
-            instances = ModelManager.handle(
-                'streams.functioninstance',
-                'filter',
-                **filters, )
-            items, pg_metadata = self.filter_paginated_results(request, instances)
-        except:
-            raise ParseError(
-                detail=f'Invalid query filters: valid ones are {self.VALID_FILTERS}')
-
-        list_serializer = FunctionInstanceListSerializer(items, many=True, request=request)
-        response_data = {
-            'total_queryset': len(instances),
-            'count': len(items),
-            'data': list_serializer.data,
-            'metadata': {
-                **pg_metadata
-            }
-        }
-        return Response(response_data,
-                        status=HTTP_200_OK)
+        return filters
 
 
-class VariableViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
+class VariableViewSet(ListViewSetMixin, RetrieveViewSetMixin, BaseAPIViewSet):
     """
     API CRUD for Variable, it implements: list, retrieve and partial_update or patch methods.
     """
     app_model_name = 'streams.variable'
+    ListSerializer = VariableListSerializer
     RetrieveSerializer = VariableSerializer
 
     VALID_FILTERS = ('iot', 'type', 'function_instance', )
 
+    @Decorators.with_permission('streams.view_variablemodel')
     def list(self, request):
-        filters = {}
-        for key, value in request.query_params.items():
-            if key not in ['limit', 'offset']:
-                filters[key] = value
-        try:
-            variables = ModelManager.handle(
-                'streams.variable',
-                'filter',
-                **filters, )
-            items, pg_metadata = self.filter_paginated_results(request, variables)
-        except:
-            raise ParseError(
-                detail=f'Invalid query filters: valid ones are {self.VALID_FILTERS}')
+        return super().list(request)
 
-        list_serializer = VariableListSerializer(items, many=True, request=request)
-        response_data = {
-            'total_queryset': len(variables),
-            'count': len(items),
-            'data': list_serializer.data,
-            'metadata': {
-                **pg_metadata
-            }
-        }
-        return Response(response_data,
-                        status=HTTP_200_OK)
+    @Decorators.with_permission('streams.view_variablemodel')
+    def retrieve(self, request, uuid):
+        return super().retrieve(request, uuid=uuid)
 
+    @Decorators.with_permission('streams.change_variablemodel')
     def partial_update(self, request, uuid=None):
         if 'body' not in request.data.keys():
             raise ParseError(
@@ -258,7 +246,8 @@ class VariableViewSet(RetrieveViewSetMixin, BaseAPIViewSet):
                 'get',
                 uuid=uuid, )
         except ObjectDoesNotExist:
-            raise NotFound(detail=f"resource identifier: '{uuid}' doesn't exist.")
+            raise NotFound(
+                detail=f"resource identifier: '{uuid}' doesn't exist.")
 
         variable.body = decode_b64str(body)
         variable.save()
@@ -277,9 +266,11 @@ def try_create_input_variables(funcs_data: dict,
             ivar['iot'] = 'input'
 
             if not ivar.get('id_name'):
-                raise ParseError({'id_name': 'field is required for each input.'})
+                raise ParseError(
+                    {'id_name': 'field is required for each input.'})
             try:
-                input_config = instance.function_type.get_input_config(ivar['id_name'])
+                input_config = instance.function_type.get_input_config(
+                    ivar['id_name'])
             except KeyError:
                 raise ParseError(
                     {'id_name': "'{0}' is not a valid input of function_type '{1}'".format(

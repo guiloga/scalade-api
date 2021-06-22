@@ -1,0 +1,78 @@
+[
+    {
+        "model": "auth.group",
+        "pk": 1,
+        "fields": {
+            "name": "business_administrator",
+            "permissions": [
+                21,
+                22,
+                23,
+                24,
+                26,
+                28,
+                33,
+                34,
+                35,
+                36,
+                29,
+                30,
+                31,
+                32,
+                12,
+                8,
+                53,
+                56,
+                37,
+                39,
+                40,
+                49,
+                50,
+                51,
+                52,
+                45,
+                47,
+                48,
+                41,
+                42,
+                44
+            ]
+        }
+    },
+    {
+        "model": "auth.group",
+        "pk": 2,
+        "fields": {
+            "name": "developer",
+            "permissions": [
+                53,
+                56,
+                37,
+                40,
+                49,
+                50,
+                51,
+                52,
+                45,
+                47,
+                48,
+                41,
+                44
+            ]
+        }
+    },
+    {
+        "model": "auth.group",
+        "pk": 3,
+        "fields": {
+            "name": "viewer",
+            "permissions": [
+                56,
+                40,
+                52,
+                48,
+                44
+            ]
+        }
+    }
+]

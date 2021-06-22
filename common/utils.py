@@ -54,6 +54,9 @@ class DecoratorShipper:
 
     @staticmethod
     def extract_fi_from_token(func):
+        """
+        Decorator used in 'runtime' api views used to extract function instance from token.
+        """ 
         def wrapper(inst, request, *args, **kwargs):
             try:
                 token = parse_bearer_token(
@@ -79,3 +82,19 @@ class DecoratorShipper:
             return func(inst, request, *args, **kwargs)
 
         return wrapper
+
+    @staticmethod
+    def with_permission(perm: str):
+        """
+        Decorator used in 'resources' api views that restricts content using permissions.
+        """
+        def decorator(func):
+            def wrapper(inst, request, *args, **kwargs):
+                account = request.user 
+                if account.is_authenticated and not account.has_perm(perm):
+                    return Response(
+                        data={'error': 'Not enough privileges.'},
+                        status=HTTP_403_FORBIDDEN)
+                return func(inst, request, *args, **kwargs)
+            return wrapper
+        return decorator

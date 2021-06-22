@@ -4,8 +4,8 @@
         "pk": "561ac10c-f66d-49f9-862f-598e621ecafa",
         "fields": {
             "created": "2021-06-03T09:37:15.357Z",
-            "auth_id": "my-company",
-            "username": "my-company",
+            "auth_id": "my-company:master",
+            "username": "master",
             "email": "master@mycompany.com",
             "password": "pbkdf2_sha256$216000$OHfU3n6iXMdX$JV7fKhs+MhKgWUaR0VcBZ3L/htY9kLiYW/ZfbuIQ4Fo=",
             "is_staff": false,

@@ -1,7 +1,9 @@
+
+from django import forms
 import os
+
 from .utils import DecoratorShipper as Decorators
 from .base import BASE_FORM_ATTRS
-from django import forms
 
 
 class BaseHeadersMixin:
@@ -26,46 +28,15 @@ class BaseHeadersMixin:
         return super().delete(*args, **kwargs)
 
 
-class AdminAddFormMixin:
-    def get_form(self, request, obj=None, **kwargs):
-        action = self.parse_action_from_request(request)
-        if action == 'add':
-            kwargs['form'] = self.add_form
+class AdminViewPermissionMixin:
+    def has_add_permission(self, request) -> bool:
+        return False
 
-        return super().get_form(request, obj, **kwargs)
+    def has_delete_permission(self, request, obj=None) -> bool:
+        return False
+    
+    def has_change_permission(self, request, obj=None) -> bool:
+        return False
 
-    @staticmethod
-    def parse_action_from_request(request) -> str:
-        return os.path.basename(
-            request.path[:-1] if request.path[-1] == '/' else request.path)
-
-
-class PasswordConfirmFormMixin(forms.Form):
-    password = forms.CharField(max_length=128, help_text='Password', widget=forms.PasswordInput(
-        attrs={**BASE_FORM_ATTRS,
-               'placeholder': 'Password'}
-    ))
-    password_confirm = forms.CharField(max_length=128, help_text='Password Confirmation',
-                                       widget=forms.PasswordInput(
-                                                attrs={**BASE_FORM_ATTRS,
-                                                       'placeholder': 'Password Confirmation'}
-                                            ))
-
-    def clean_password_confirmation(self):
-        p1 = self.cleaned_data.get('password')
-        p2 = self.cleaned_data.get('password_confirm')
-        if p1 and p2 and p1 == p2:
-            return p1
-        else:
-            raise forms.ValidationError('Passwords don\'t match.')
-
-
-class AccountRegisterFormMixin(forms.Form):
-    username = forms.CharField(max_length=150, label='Username', widget=forms.TextInput(
-        attrs={**BASE_FORM_ATTRS,
-               'placeholder': 'Username'}
-    ))
-    email = forms.EmailField(max_length=150, label='Email Address', widget=forms.EmailInput(
-        attrs={**BASE_FORM_ATTRS,
-               'placeholder': 'Email Address'}
-    ))
+    def has_view_permission(self, request, obj=None) -> bool:
+        return True

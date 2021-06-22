@@ -14,7 +14,9 @@ install: # Development installation
 	scripts/install.sh
 
 load_fixtures: # Loads all models data from fixtures
-	python manage.py loaddata fixtures/all.json
+	python manage.py loaddata fixtures/common/permissions.json
+	python manage.py loaddata fixtures/common/groups.json
+	python manage.py loaddata fixtures/dev/all.json
 
 dump_fixtures: # Dumps all models data to fixtures
 	scripts/dump_fixtures.sh

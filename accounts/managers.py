@@ -13,14 +13,14 @@ class WorkspaceManager(models.Manager):
 
 class AccountManager(BaseUserManager):
     def create_account(self, username, email, password, organization_slug,
-                       is_business: bool = False, **kwargs):
+                       **kwargs):
         if not password:
             raise ValueError('Password is required, it cannot be null.')
 
         id_ = uuid4()
         account = self.model(
             uuid=id_,
-            auth_id=organization_slug if is_business else '%s:%s' % (organization_slug, username),
+            auth_id='%s:%s' % (organization_slug, username),
             username=username,
             email=self.normalize_email(email),
             **kwargs, )

@@ -13,12 +13,12 @@ python3 manage.py migrate
 echo "from django.contrib.auth import \
       get_user_model; User = get_user_model(); \
       User.objects.create_superaccount(organization_slug='scalade', \
-      email='admin@scalade.com', username='scalade', password='scalade', \
-      is_business=True)" | python3 manage.py shell
+      email='master@scalade.com', username='master', password='scalade')" \
+      | python3 manage.py shell
 
 echo "A development User has been created with:"
 echo "organization_slug: scalade"
-echo "email: admin@scalade.com"
+echo "email: master@scalade.com"
 echo "username: scalade"
 echo "password: scalade"
 

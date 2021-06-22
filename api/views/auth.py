@@ -3,12 +3,13 @@ from rest_framework.authentication import CSRFCheck
 from rest_framework.exceptions import ParseError, PermissionDenied
 from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_401_UNAUTHORIZED
+from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_400_BAD_REQUEST, \
+    HTTP_401_UNAUTHORIZED
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 
 from api.serializers.auth import BusinessSignUpSerializer, UserSignUpSerializer, SignInSerializer
-from api.serializers.accounts import BusinessSerializer, UserSerializer
+from api.serializers.accounts import BusinessExtentedSerializer, UserExtentedSerializer
 
 
 class CSRFTokenProtection(BasePermission):
@@ -46,10 +47,10 @@ class SignUpView(APIView):
     def post(self, request, type_):
         if type_ == 'business':
             sign_up_serializer_type = BusinessSignUpSerializer
-            resource_serializer_type = BusinessSerializer
+            resource_serializer_type = BusinessExtentedSerializer
         elif type_ == 'user':
             sign_up_serializer_type = UserSignUpSerializer
-            resource_serializer_type = UserSerializer
+            resource_serializer_type = UserExtentedSerializer
         else:
             raise ParseError("Invalid 'type' value: "
                              "valid sign up types are either 'business' or 'user'.")
@@ -69,7 +70,8 @@ class SignInView(APIView):
     permission_classes = [CSRFTokenProtection | AllowAny]
 
     def post(self, request, type_):
-        serializer = SignInSerializer(data={**request.data, 'auth_type': type_})
+        serializer = SignInSerializer(
+            data={**request.data, 'auth_type': type_})
         serializer.is_valid(raise_exception=True)
         auth_params = {'password': serializer.validated_data['password']}
         if type_ == 'email':
@@ -93,7 +95,14 @@ class SignInView(APIView):
 
 
 class SignOutView(APIView):
+    """
+    API View for Account signout.
+    """
+    permission_classes = [CSRFTokenProtection | AllowAny]
+
     def post(self, request):
+        if not request.user.is_authenticated:
+            return Response(status=HTTP_400_BAD_REQUEST)
         logout(request)
         return Response(status=HTTP_200_OK)
 
@@ -102,5 +111,6 @@ class ResetPasswordView(APIView):
     """
     API view for Account password recovery.
     """
+
     def post(self, request):
         pass

@@ -1,29 +1,45 @@
 from django.contrib import admin
 
-from streams.models import StreamModel, FunctionTypeModel, FunctionInstanceModel, VariableModel, \
+from common.mixins import AdminViewPermissionMixin
+from streams.models import FunctionTypeModel, StreamModel, FunctionInstanceModel, VariableModel, \
     FunctionInstanceLogMessageModel
 
 
-@admin.register(StreamModel)
-class StreamAdmin(admin.ModelAdmin):
-    pass
-
-
 @admin.register(FunctionTypeModel)
-class FunctionTypeAdmin(admin.ModelAdmin):
-    pass
+class FunctionTypeAdmin(AdminViewPermissionMixin, admin.ModelAdmin):
+    list_display = ('uuid', 'created', 'key', 'verbose_name', 'updated')
+    list_filter = ('created', 'updated', )
+    search_fields = ('uuid', 'key', 'verbose_name', )
+    list_per_page = 100
+
+
+@admin.register(StreamModel)
+class StreamAdmin(AdminViewPermissionMixin, admin.ModelAdmin):
+    list_display = ('uuid', 'created', 'name', 'updated', 'status', )
+    list_filter = ('created', 'updated', 'status', )
+    search_fields = ('uuid', 'name', 'workspace', )
+    list_per_page = 100
 
 
 @admin.register(FunctionInstanceModel)
-class FunctionInstanceAdmin(admin.ModelAdmin):
-    pass
+class FunctionInstanceAdmin(AdminViewPermissionMixin, admin.ModelAdmin):
+    list_display = ('uuid', 'created', 'function_type', 'stream', 'updated', 'status', )
+    list_filter = ('created', 'updated', 'status', )
+    search_fields = ('uuid', 'name', 'function_type', 'stream', )
+    list_per_page = 100
 
 
 @admin.register(VariableModel)
-class VariableAdmin(admin.ModelAdmin):
-    pass
+class VariableAdmin(AdminViewPermissionMixin, admin.ModelAdmin):
+    list_display = ('uuid', 'created', 'iot', 'id_name', 'function_instance', )
+    list_filter = ('created', 'iot', )
+    search_fields = ('uuid', 'id_name', 'function_instance', )
+    list_per_page = 100
 
 
 @admin.register(FunctionInstanceLogMessageModel)
-class FunctionInstanceLogMessageAdmin(admin.ModelAdmin):
-    pass
+class FunctionInstanceLogMessageAdmin(AdminViewPermissionMixin, admin.ModelAdmin):
+    list_display = ('uuid', 'created', 'function_instance', 'log_level', )
+    list_filter = ('created', 'log_level', )
+    search_fields = ('uuid', 'function_instance', )
+    list_per_page = 100

@@ -1,0 +1,770 @@
+[
+    {
+        "model": "auth.permission",
+        "pk": 1,
+        "fields": {
+            "name": "Can add log entry",
+            "content_type": 1,
+            "codename": "add_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 2,
+        "fields": {
+            "name": "Can change log entry",
+            "content_type": 1,
+            "codename": "change_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 3,
+        "fields": {
+            "name": "Can delete log entry",
+            "content_type": 1,
+            "codename": "delete_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 4,
+        "fields": {
+            "name": "Can view log entry",
+            "content_type": 1,
+            "codename": "view_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 5,
+        "fields": {
+            "name": "Can add permission",
+            "content_type": 2,
+            "codename": "add_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 6,
+        "fields": {
+            "name": "Can change permission",
+            "content_type": 2,
+            "codename": "change_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 7,
+        "fields": {
+            "name": "Can delete permission",
+            "content_type": 2,
+            "codename": "delete_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 8,
+        "fields": {
+            "name": "Can view permission",
+            "content_type": 2,
+            "codename": "view_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 9,
+        "fields": {
+            "name": "Can add group",
+            "content_type": 3,
+            "codename": "add_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 10,
+        "fields": {
+            "name": "Can change group",
+            "content_type": 3,
+            "codename": "change_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 11,
+        "fields": {
+            "name": "Can delete group",
+            "content_type": 3,
+            "codename": "delete_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 12,
+        "fields": {
+            "name": "Can view group",
+            "content_type": 3,
+            "codename": "view_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 13,
+        "fields": {
+            "name": "Can add content type",
+            "content_type": 4,
+            "codename": "add_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 14,
+        "fields": {
+            "name": "Can change content type",
+            "content_type": 4,
+            "codename": "change_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 15,
+        "fields": {
+            "name": "Can delete content type",
+            "content_type": 4,
+            "codename": "delete_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 16,
+        "fields": {
+            "name": "Can view content type",
+            "content_type": 4,
+            "codename": "view_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 17,
+        "fields": {
+            "name": "Can add session",
+            "content_type": 5,
+            "codename": "add_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 18,
+        "fields": {
+            "name": "Can change session",
+            "content_type": 5,
+            "codename": "change_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 19,
+        "fields": {
+            "name": "Can delete session",
+            "content_type": 5,
+            "codename": "delete_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 20,
+        "fields": {
+            "name": "Can view session",
+            "content_type": 5,
+            "codename": "view_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 21,
+        "fields": {
+            "name": "Can add Account",
+            "content_type": 6,
+            "codename": "add_accountmodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 22,
+        "fields": {
+            "name": "Can change Account",
+            "content_type": 6,
+            "codename": "change_accountmodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 23,
+        "fields": {
+            "name": "Can delete Account",
+            "content_type": 6,
+            "codename": "delete_accountmodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 24,
+        "fields": {
+            "name": "Can view Account",
+            "content_type": 6,
+            "codename": "view_accountmodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 25,
+        "fields": {
+            "name": "Can add Business",
+            "content_type": 7,
+            "codename": "add_businessmodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 26,
+        "fields": {
+            "name": "Can change Business",
+            "content_type": 7,
+            "codename": "change_businessmodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 27,
+        "fields": {
+            "name": "Can delete Business",
+            "content_type": 7,
+            "codename": "delete_businessmodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 28,
+        "fields": {
+            "name": "Can view Business",
+            "content_type": 7,
+            "codename": "view_businessmodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 29,
+        "fields": {
+            "name": "Can add Workspace",
+            "content_type": 8,
+            "codename": "add_workspacemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 30,
+        "fields": {
+            "name": "Can change Workspace",
+            "content_type": 8,
+            "codename": "change_workspacemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 31,
+        "fields": {
+            "name": "Can delete Workspace",
+            "content_type": 8,
+            "codename": "delete_workspacemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 32,
+        "fields": {
+            "name": "Can view Workspace",
+            "content_type": 8,
+            "codename": "view_workspacemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 33,
+        "fields": {
+            "name": "Can add Users",
+            "content_type": 9,
+            "codename": "add_usermodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 34,
+        "fields": {
+            "name": "Can change Users",
+            "content_type": 9,
+            "codename": "change_usermodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 35,
+        "fields": {
+            "name": "Can delete Users",
+            "content_type": 9,
+            "codename": "delete_usermodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 36,
+        "fields": {
+            "name": "Can view Users",
+            "content_type": 9,
+            "codename": "view_usermodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 37,
+        "fields": {
+            "name": "Can add Function Instance",
+            "content_type": 10,
+            "codename": "add_functioninstancemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 38,
+        "fields": {
+            "name": "Can change Function Instance",
+            "content_type": 10,
+            "codename": "change_functioninstancemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 39,
+        "fields": {
+            "name": "Can delete Function Instance",
+            "content_type": 10,
+            "codename": "delete_functioninstancemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 40,
+        "fields": {
+            "name": "Can view Function Instance",
+            "content_type": 10,
+            "codename": "view_functioninstancemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 41,
+        "fields": {
+            "name": "Can add Variable",
+            "content_type": 11,
+            "codename": "add_variablemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 42,
+        "fields": {
+            "name": "Can change Variable",
+            "content_type": 11,
+            "codename": "change_variablemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 43,
+        "fields": {
+            "name": "Can delete Variable",
+            "content_type": 11,
+            "codename": "delete_variablemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 44,
+        "fields": {
+            "name": "Can view Variable",
+            "content_type": 11,
+            "codename": "view_variablemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 45,
+        "fields": {
+            "name": "Can add Stream",
+            "content_type": 12,
+            "codename": "add_streammodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 46,
+        "fields": {
+            "name": "Can change Stream",
+            "content_type": 12,
+            "codename": "change_streammodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 47,
+        "fields": {
+            "name": "Can delete Stream",
+            "content_type": 12,
+            "codename": "delete_streammodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 48,
+        "fields": {
+            "name": "Can view Stream",
+            "content_type": 12,
+            "codename": "view_streammodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 49,
+        "fields": {
+            "name": "Can add Function Type",
+            "content_type": 13,
+            "codename": "add_functiontypemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 50,
+        "fields": {
+            "name": "Can change Function Type",
+            "content_type": 13,
+            "codename": "change_functiontypemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 51,
+        "fields": {
+            "name": "Can delete Function Type",
+            "content_type": 13,
+            "codename": "delete_functiontypemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 52,
+        "fields": {
+            "name": "Can view Function Type",
+            "content_type": 13,
+            "codename": "view_functiontypemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 53,
+        "fields": {
+            "name": "Can add Function Instance Log Message",
+            "content_type": 14,
+            "codename": "add_functioninstancelogmessagemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 54,
+        "fields": {
+            "name": "Can change Function Instance Log Message",
+            "content_type": 14,
+            "codename": "change_functioninstancelogmessagemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 55,
+        "fields": {
+            "name": "Can delete Function Instance Log Message",
+            "content_type": 14,
+            "codename": "delete_functioninstancelogmessagemodel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 56,
+        "fields": {
+            "name": "Can view Function Instance Log Message",
+            "content_type": 14,
+            "codename": "view_functioninstancelogmessagemodel"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 1,
+        "fields": {
+            "app_label": "admin",
+            "model": "logentry"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 2,
+        "fields": {
+            "app_label": "auth",
+            "model": "permission"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 3,
+        "fields": {
+            "app_label": "auth",
+            "model": "group"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 4,
+        "fields": {
+            "app_label": "contenttypes",
+            "model": "contenttype"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 5,
+        "fields": {
+            "app_label": "sessions",
+            "model": "session"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 6,
+        "fields": {
+            "app_label": "accounts",
+            "model": "accountmodel"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 7,
+        "fields": {
+            "app_label": "accounts",
+            "model": "businessmodel"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 8,
+        "fields": {
+            "app_label": "accounts",
+            "model": "workspacemodel"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 9,
+        "fields": {
+            "app_label": "accounts",
+            "model": "usermodel"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 10,
+        "fields": {
+            "app_label": "streams",
+            "model": "functioninstancemodel"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 11,
+        "fields": {
+            "app_label": "streams",
+            "model": "variablemodel"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 12,
+        "fields": {
+            "app_label": "streams",
+            "model": "streammodel"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 13,
+        "fields": {
+            "app_label": "streams",
+            "model": "functiontypemodel"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 14,
+        "fields": {
+            "app_label": "streams",
+            "model": "functioninstancelogmessagemodel"
+        }
+    },
+    {
+        "model": "accounts.workspacemodel",
+        "pk": "0be47ce4-a2e9-471f-b92a-a25c7811e261",
+        "fields": {
+            "created": "2021-06-03T09:40:55.933Z",
+            "name": "test_user_1-default",
+            "business": "0461f477-8194-4d3d-8c3a-1311f3d8eba4"
+        }
+    },
+    {
+        "model": "accounts.accountmodel",
+        "pk": "561ac10c-f66d-49f9-862f-598e621ecafa",
+        "fields": {
+            "created": "2021-06-03T09:37:15.357Z",
+            "auth_id": "my-company:master",
+            "username": "master",
+            "email": "master@mycompany.com",
+            "password": "pbkdf2_sha256$216000$OHfU3n6iXMdX$JV7fKhs+MhKgWUaR0VcBZ3L/htY9kLiYW/ZfbuIQ4Fo=",
+            "is_staff": false,
+            "is_superuser": false,
+            "is_active": true,
+            "date_joined": "2021-06-03T09:37:15.101Z",
+            "last_login": null,
+            "groups": [],
+            "user_permissions": [],
+            "workspaces": [
+                "0be47ce4-a2e9-471f-b92a-a25c7811e261"
+            ]
+        }
+    },
+    {
+        "model": "accounts.accountmodel",
+        "pk": "cb4a4d2b-e4aa-4637-9d03-7d74b11a87b5",
+        "fields": {
+            "created": "2021-06-03T09:40:55.644Z",
+            "auth_id": "my-company:test_user_1",
+            "username": "test_user_1",
+            "email": "test_user_1@mycompany.com",
+            "password": "pbkdf2_sha256$216000$uVWBA62BJj0k$9KRMKKgQg0uhFspvJqek7N+8tI0AZYX8JbPDXIFLo68=",
+            "is_staff": false,
+            "is_superuser": false,
+            "is_active": true,
+            "date_joined": "2021-06-03T09:40:55.419Z",
+            "last_login": "2021-06-03T09:46:04.941Z",
+            "groups": [],
+            "user_permissions": [],
+            "workspaces": [
+                "0be47ce4-a2e9-471f-b92a-a25c7811e261"
+            ]
+        }
+    },
+    {
+        "model": "accounts.businessmodel",
+        "pk": "0461f477-8194-4d3d-8c3a-1311f3d8eba4",
+        "fields": {
+            "created": "2021-06-03T09:37:15.522Z",
+            "master_account": "561ac10c-f66d-49f9-862f-598e621ecafa",
+            "organization_name": "My Company",
+            "organization_slug": "my-company"
+        }
+    },
+    {
+        "model": "accounts.usermodel",
+        "pk": "b0442be3-6d21-431a-9e30-45f909eb9ac8",
+        "fields": {
+            "created": "2021-06-03T09:40:55.810Z",
+            "account": "cb4a4d2b-e4aa-4637-9d03-7d74b11a87b5",
+            "business": "0461f477-8194-4d3d-8c3a-1311f3d8eba4",
+            "first_name": "User 1",
+            "last_name": "Test"
+        }
+    },
+    {
+        "model": "streams.functiontypemodel",
+        "pk": "732ef517-64fb-4fac-bccd-367e866be333",
+        "fields": {
+            "key": "cb4a4d2b/random_person_names",
+            "verbose_name": "Random Person Names",
+            "description": "This function generatesa desired number of random person names (i.e Guillem López Garcia).",
+            "created": "2021-06-03T09:47:47.836Z",
+            "updated": "2021-06-03T09:47:47.836Z",
+            "inputs": "[{\"id_name\": \"TotalGetNames\", \"type\": \"integer\", \"verbose_name\": \"Total names to generate\", \"__rank__\": 0}]",
+            "outputs": "[{\"id_name\": \"Names\", \"type\": \"text\", \"verbose_name\": \"List of generated names (separated by commas)\", \"__rank__\": 0}]",
+            "account": "cb4a4d2b-e4aa-4637-9d03-7d74b11a87b5"
+        }
+    },
+    {
+        "model": "streams.streammodel",
+        "pk": "4549e57d-2f76-4755-9715-ebe2ca6badc7",
+        "fields": {
+            "name": "TestRandomNames_1",
+            "created": "2021-06-03T09:55:01.911Z",
+            "pushed": null,
+            "updated": "2021-06-03T09:55:01.911Z",
+            "finished": null,
+            "status": "settled",
+            "workspace": "0be47ce4-a2e9-471f-b92a-a25c7811e261",
+            "account": "cb4a4d2b-e4aa-4637-9d03-7d74b11a87b5"
+        }
+    },
+    {
+        "model": "streams.functioninstancemodel",
+        "pk": "19c1868e-9e5b-4476-b03a-2b5b41207e4f",
+        "fields": {
+            "function_type": "732ef517-64fb-4fac-bccd-367e866be333",
+            "stream": "4549e57d-2f76-4755-9715-ebe2ca6badc7",
+            "position": "{\"row\": 0, \"col\": 0}",
+            "created": "2021-06-03T09:55:02.249Z",
+            "initialized": null,
+            "updated": "2021-06-03T09:55:02.249Z",
+            "completed": null,
+            "status": "pending"
+        }
+    },
+    {
+        "model": "streams.variablemodel",
+        "pk": "0c338e4d-d99e-4fe7-8b62-fedee29e56e1",
+        "fields": {
+            "created": "2021-06-03T10:31:01.657Z",
+            "iot": "output",
+            "id_name": "Names",
+            "type": "text",
+            "charset": "utf-8",
+            "bytes": "R3VpbGxlbSBMb3BleiBHYXJjaWEsQWxiZXJ0IExvcGV6IEdhcmNpYQ==",
+            "function_instance": "19c1868e-9e5b-4476-b03a-2b5b41207e4f",
+            "rank": 0
+        }
+    },
+    {
+        "model": "streams.variablemodel",
+        "pk": "7c032c0e-56d2-483f-9873-b1b6d21068bb",
+        "fields": {
+            "created": "2021-06-03T09:55:02.511Z",
+            "iot": "input",
+            "id_name": "TotalGetNames",
+            "type": "integer",
+            "charset": "utf-8",
+            "bytes": "Mw==",
+            "function_instance": "19c1868e-9e5b-4476-b03a-2b5b41207e4f",
+            "rank": 0
+        }
+    },
+    {
+        "model": "streams.functioninstancelogmessagemodel",
+        "pk": "2d39c3bf-7f07-4272-95c5-052bd52abc31",
+        "fields": {
+            "created": "2021-06-03T10:37:24.149Z",
+            "function_instance": "19c1868e-9e5b-4476-b03a-2b5b41207e4f",
+            "log_message": "Hello, this is a test log message.",
+            "log_level": "info"
+        }
+    }
+]

@@ -32,7 +32,8 @@ class WorkspaceCreationSerializer(BaseSerializer):
 
     def validate_business(self, business_uuid):
         try:
-            business = ModelManager.handle('accounts.business', 'get', uuid=business_uuid)
+            business = ModelManager.handle(
+                'accounts.business', 'get', uuid=business_uuid)
         except ObjectDoesNotExist:
             raise serializers.ValidationError(
                 "Business is invalid: '%s' doesn't exist." % business_uuid)
@@ -75,6 +76,21 @@ class BusinessSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class BusinessExtentedSerializer(serializers.ModelSerializer):
+    username = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+
+    class Meta:
+        model = BusinessModel
+        fields = '__all__'
+
+    def get_username(self, obj):
+        return obj.master_account.username
+
+    def get_email(self, obj):
+        return obj.master_account.email
+
+
 class BusinessListSerializer(ListItemsWithURLSerializer):
     url_basename = 'entities-api:businesses-detail'
     url = serializers.SerializerMethodField()
@@ -88,6 +104,25 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         fields = '__all__'
+
+
+class UserExtentedSerializer(serializers.ModelSerializer):
+    username = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+    organization_slug = serializers.SerializerMethodField()
+
+    class Meta:
+        model = UserModel
+        fields = '__all__'
+
+    def get_username(self, obj):
+        return obj.account.username
+
+    def get_email(self, obj):
+        return obj.account.email
+
+    def get_organization_slug(self, obj):
+        return obj.business.organization_slug
 
 
 class UserListSerializer(ListItemsWithURLSerializer):
