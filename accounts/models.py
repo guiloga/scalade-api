@@ -6,7 +6,7 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.validators import MinLengthValidator
 from django.utils import timezone
 from common.contracts import ModelContract
-from .managers import WorkspaceManager, AccountManager, UserManager
+from .managers import WorkspaceManager, AccountManager, UserManager, BusinessManager
 from scaladecore.entities import WorkspaceEntity, AccountEntity, BusinessEntity, UserEntity
 
 
@@ -150,6 +150,8 @@ class BusinessModel(ModelContract):
                                              MinLengthValidator(limit_value=4), ])
     # company_acronym = models.CharField(max_length=50, unique=True)
     # company_logo = models.ImageField(null=True)
+
+    objects = BusinessManager()
 
     class Meta:
         ordering = ['-created', ]

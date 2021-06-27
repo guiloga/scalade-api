@@ -1,3 +1,4 @@
+from common.utils import ModelManager
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.authentication import CSRFCheck
 from rest_framework.exceptions import ParseError, PermissionDenied
@@ -85,6 +86,7 @@ class SignInView(APIView):
         account = authenticate(request, **auth_params)
         if account:
             login(request, account)
+            self.put_workspace_into_session(request, account)
             return Response(data={'success': True},
                             status=HTTP_200_OK)
         else:
@@ -92,6 +94,13 @@ class SignInView(APIView):
                                   'error': 'Invalid Password. '
                                            'Try again, or reset your password.'},
                             status=HTTP_401_UNAUTHORIZED)
+
+    def put_workspace_into_session(self, request, account):
+        """
+        Mutates request.session (a dict-like object) saving the default/current user workspace.
+        """
+        workspace = account.workspaces.all().order_by('created')[0]
+        request.session['workspace'] = workspace.name
 
 
 class SignOutView(APIView):

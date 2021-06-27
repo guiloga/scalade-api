@@ -40,10 +40,23 @@ class AccountManager(BaseUserManager):
 
 class UserManager(models.Manager):
     def create(self, *args, **kwargs):
-        from .models import WorkspaceModel
         user = super().create(*args, **kwargs)
-        default_workspace = '%s-%s' % (user.account.username, 'default')
-        workspace = WorkspaceModel.objects.create(name=default_workspace, business=user.business)
-        user.account.workspaces.add(workspace)
-
+        create_default_workspace(user.account, user.business)
         return user
+
+
+class BusinessManager(models.Manager):
+    def create(self, *args, **kwargs):
+        business = super().create(*args, **kwargs)
+        create_default_workspace(business.master_account, business)
+        return business
+
+
+
+def create_default_workspace(account, business):
+    from .models import WorkspaceModel
+    default_workspace = '%s-%s' % (account.username, 'default')
+    workspace = WorkspaceModel.objects.create(
+        name=default_workspace,
+        business=business)
+    account.workspaces.add(workspace)
