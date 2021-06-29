@@ -59,7 +59,8 @@ class CreateFILogMessage(APIView):
 
         # TODO: Send changes trough a socket to application client
 
-        return Response(status=HTTP_200_OK)
+        return Response(data={'fi_log_message': fi_log_message.uuid},
+                        status=HTTP_200_OK)
 
 
 class UpdateFIStatus(APIView):

@@ -26,5 +26,33 @@
             "function_instance": "19c1868e-9e5b-4476-b03a-2b5b41207e4f",
             "rank": 0
         }
+    },
+    {
+        "model": "streams.variablemodel",
+        "pk": "3ac1d759-e3a6-4060-b7b3-00d572d4dced",
+        "fields": {
+            "created": "2021-06-03T09:55:02.511Z",
+            "iot": "input",
+            "id_name": "TotalGetNames",
+            "type": "integer",
+            "charset": "utf-8",
+            "bytes": "Mw==",
+            "function_instance": "5c1220a0-90ab-481f-99f5-92888bf4a7e1",
+            "rank": 0
+        }
+    },
+    {
+        "model": "streams.variablemodel",
+        "pk": "4bdb024a-2649-446d-803e-97c8ee239176",
+        "fields": {
+            "created": "2021-06-03T09:55:02.511Z",
+            "iot": "input",
+            "id_name": "TotalGetNames",
+            "type": "integer",
+            "charset": "utf-8",
+            "bytes": "Mw==",
+            "function_instance": "a4c976a5-950c-459c-b3f0-c1e31ea3bf6c",
+            "rank": 0
+        }
     }
 ]

@@ -10,7 +10,35 @@
             "initialized": null,
             "updated": "2021-06-03T09:55:02.249Z",
             "completed": null,
-            "status": "pending"
+            "status": "running"
+        }
+    },
+    {
+        "model": "streams.functioninstancemodel",
+        "pk": "5c1220a0-90ab-481f-99f5-92888bf4a7e1",
+        "fields": {
+            "function_type": "732ef517-64fb-4fac-bccd-367e866be333",
+            "stream": "1cd06317-ef72-418e-8812-0df3031c0582",
+            "position": "{\"row\": 0, \"col\": 0}",
+            "created": "2021-06-03T09:55:02.249Z",
+            "initialized": null,
+            "updated": "2021-06-03T09:55:02.249Z",
+            "completed": null,
+            "status": "running"
+        }
+    },
+    {
+        "model": "streams.functioninstancemodel",
+        "pk": "a4c976a5-950c-459c-b3f0-c1e31ea3bf6c",
+        "fields": {
+            "function_type": "732ef517-64fb-4fac-bccd-367e866be333",
+            "stream": "60ab5ac1-085b-4cd4-aa69-f03abafcd602",
+            "position": "{\"row\": 0, \"col\": 0}",
+            "created": "2021-06-03T09:55:02.249Z",
+            "initialized": null,
+            "updated": "2021-06-03T09:55:02.249Z",
+            "completed": null,
+            "status": "running"
         }
     }
 ]

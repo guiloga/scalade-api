@@ -12,5 +12,33 @@
             "workspace": "0be47ce4-a2e9-471f-b92a-a25c7811e261",
             "account": "cb4a4d2b-e4aa-4637-9d03-7d74b11a87b5"
         }
+    },
+    {
+        "model": "streams.streammodel",
+        "pk": "1cd06317-ef72-418e-8812-0df3031c0582",
+        "fields": {
+            "name": "TestRandomNames_2",
+            "created": "2021-06-03T09:55:01.911Z",
+            "pushed": null,
+            "updated": "2021-06-03T09:55:01.911Z",
+            "finished": null,
+            "status": "settled",
+            "workspace": "0be47ce4-a2e9-471f-b92a-a25c7811e261",
+            "account": "cb4a4d2b-e4aa-4637-9d03-7d74b11a87b5"
+        }
+    },
+    {
+        "model": "streams.streammodel",
+        "pk": "60ab5ac1-085b-4cd4-aa69-f03abafcd602",
+        "fields": {
+            "name": "TestRandomNames_3",
+            "created": "2021-06-03T09:55:01.911Z",
+            "pushed": null,
+            "updated": "2021-06-03T09:55:01.911Z",
+            "finished": null,
+            "status": "settled",
+            "workspace": "0be47ce4-a2e9-471f-b92a-a25c7811e261",
+            "account": "cb4a4d2b-e4aa-4637-9d03-7d74b11a87b5"
+        }
     }
 ]
