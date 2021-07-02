@@ -1,12 +1,5 @@
 version: "3"
 services:
-  rabbitmq:
-    image: rabbitmq:management-alpine
-    container_name: rabbitmq_server
-    restart: always
-    ports:
-      - "5672:5672"
-      - "15672:15672"
   db:
     image: postgres
     container_name: postgres_server

@@ -2,7 +2,7 @@
   "organization_slug": "my-company",
   "first_name": "User 1",
   "last_name": "Test",
-  "username": "test_user_1",
-  "email": "test_user_1@mycompany.com",
+  "username": "test_user",
+  "email": "test_user@mycompany.com",
   "password": "Three3Two2One1$"
 }
