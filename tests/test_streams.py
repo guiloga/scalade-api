@@ -64,7 +64,7 @@ class TestVariableModel:
         var_orm, _ = VariableModel.create_output(fi.uuid, output)
         assert var_orm.iot == 'output'
         assert var_orm.to_entity
-        assert var_orm.rank == 0
+        assert var_orm.rank >= 0
 
 
 class TestFunctionInstanceLogMessageModel:

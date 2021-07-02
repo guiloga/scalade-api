@@ -25,9 +25,9 @@
         "pk": "cb4a4d2b-e4aa-4637-9d03-7d74b11a87b5",
         "fields": {
             "created": "2021-06-03T09:40:55.644Z",
-            "auth_id": "my-company:test_user_1",
-            "username": "test_user_1",
-            "email": "test_user_1@mycompany.com",
+            "auth_id": "my-company:test_user",
+            "username": "test_user",
+            "email": "test_user@mycompany.com",
             "password": "pbkdf2_sha256$216000$uVWBA62BJj0k$9KRMKKgQg0uhFspvJqek7N+8tI0AZYX8JbPDXIFLo68=",
             "is_staff": false,
             "is_superuser": false,

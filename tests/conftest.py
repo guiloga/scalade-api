@@ -17,8 +17,8 @@ from settings import RESOURCES_DIR
 
 fake = Faker()
 
-JSON_FIXTURES = os.path.join(
-    os.path.dirname(os.path.dirname(__file__)), 'fixtures', 'all.json')
+FIXTURES_DIR = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)), 'fixtures')
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -27,12 +27,23 @@ def function_config():
     return config
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(scope='session', autouse=True)
 def django_db_setup(django_db_setup, django_db_blocker, function_config):
     with django_db_blocker.unblock():
         # the initial test DB is populated with json fixtures and
         # fake model instances baked by model_bakery.
-        call_command('loaddata', JSON_FIXTURES)
+        accounts_fixtures = glob.glob(os.path.join(
+            FIXTURES_DIR, 'dev', 'accounts', '*.json'))
+        call_command('loaddata', *accounts_fixtures)
+
+        streams_fixtures = glob.glob(os.path.join(
+            FIXTURES_DIR, 'dev', 'streams', '*.json'))
+        call_command('loaddata', *streams_fixtures)
+
+        common_fixtures = glob.glob(os.path.join(
+            FIXTURES_DIR, 'common', '*.json'))
+        call_command('loaddata', *common_fixtures)
+
         _bake_fixtures(function_config)
 
 
@@ -64,7 +75,8 @@ def _bake_fixtures(function_config):
         'accounts.BusinessModel',
         uuid=uuid4(),
         master_account=bs_account,
-        organization_name='Fake Company', )
+        organization_name='Test Company',
+        organization_slug='test-company', )
 
     user_account = baker.make(
         'accounts.AccountModel',
@@ -92,7 +104,7 @@ def _bake_fixtures(function_config):
     function_type = baker.make(
         'streams.FunctionTypeModel',
         uuid=uuid4(),
-        key=f'{user.auth_id}/fake-function:latest',
+        key=f'{user.account.auth_id}/fake-function:latest',
         verbose_name='Fake Function',
         description='Fake function description.',
         inputs=function_config.inputs_as_json,
