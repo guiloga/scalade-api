@@ -25,6 +25,10 @@ echo "email: master@scalade.com"
 echo "username: scalade"
 echo "password: scalade"
 
-# Create media directory
+# Create static/ directory
+mkdir static
+chmod -R 700 static
+
+# Create media/ directory
 mkdir media
 chmod -R 700 media
